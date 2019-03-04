@@ -1,8 +1,8 @@
 package survey.demo.Entity;
 
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "question")
@@ -13,7 +13,7 @@ public class QuestionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "surveyId")
+    @Column(name = "survey_id")
     private Integer surveyId;
 
     @Column(name = "content")
@@ -22,12 +22,16 @@ public class QuestionEntity {
     @Column(name = "rating")
     private Integer rating;
 
+    @OneToMany(mappedBy = "questionId")
+    List<AnswerEntity> answerEntityList;
+
     public QuestionEntity() {
     }
 
-    public QuestionEntity(String content, Integer rating) {
+    public QuestionEntity(Integer surveyId, String content) {
+        this.surveyId = surveyId;
         this.content = content;
-        this.rating = rating;
+        this.rating = 0;
     }
 
     public Integer getId() {
@@ -56,5 +60,13 @@ public class QuestionEntity {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public List<AnswerEntity> getAnswerEntityList() {
+        return answerEntityList;
+    }
+
+    public void setAnswerEntityList(List<AnswerEntity> answerEntityList) {
+        this.answerEntityList = answerEntityList;
     }
 }

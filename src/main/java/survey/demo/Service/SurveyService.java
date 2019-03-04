@@ -1,11 +1,14 @@
-package survey.demo.SurveyService;
+package survey.demo.Service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import survey.demo.Entity.QuestionEntity;
 import survey.demo.Entity.SurveyEntity;
 import survey.demo.Repository.SurveyRepository;
+
+import java.util.List;
 
 
 @Service
@@ -15,8 +18,22 @@ public class SurveyService {
     @Autowired
     private SurveyRepository surveyRepository;
 
+    @Autowired
+    private QuestionService questionService;
+
     public SurveyEntity getSurveyById(Integer id) {
         return surveyRepository.findByIdEquals(id);
+    }
+
+    public List<SurveyEntity> getAllSurvey() {
+        return surveyRepository.findAllByIsActive(true);
+    }
+
+    public SurveyEntity getSurveyWithFullContent(Integer id) {
+        SurveyEntity surveyEntity = surveyRepository.findByIdEquals(id);
+        List<QuestionEntity> questionEntityList = questionService.getQuestionAndAnswerListBySurveyId(id);
+        surveyEntity.setQuestionEntityList(questionEntityList);
+        return surveyEntity;
     }
 
     public SurveyEntity createSurvey(String name) {
