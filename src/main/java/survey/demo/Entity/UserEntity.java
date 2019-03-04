@@ -7,7 +7,7 @@ public class UserEntity {
 	@Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(name = "username")
 	private String username;
@@ -16,10 +16,10 @@ public class UserEntity {
 	private String password;
 	
 	@Column(name = "isAdmin")
-	private boolean isAdmin;
+	private Boolean isAdmin;
 	
 	public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public String getUserName() {
@@ -39,11 +39,11 @@ public class UserEntity {
         this.password = password;
     }
     
-    public boolean getIsAdmin () {
+    public Boolean getIsAdmin () {
     	return this.isAdmin;
     }
     
-    public void setIsAdmin (boolean isAdmin) {
+    public void setIsAdmin (Boolean isAdmin) {
     	this.isAdmin=isAdmin;
     }
 }
