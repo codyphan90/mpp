@@ -13,6 +13,10 @@ public class ResponseEntity<T> {
         this.exceptionMessage = exceptionMessage;
         this.dataResponse = dataResponse;
     }
+    public ResponseEntity(Boolean success, String exceptionMessage) {
+        this.success = success;
+        this.exceptionMessage = exceptionMessage;
+    }
     public ResponseEntity(String exceptionMessage) {
         this.success = false;
         this.exceptionMessage = exceptionMessage;
