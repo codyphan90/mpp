@@ -1,9 +1,21 @@
 package survey.demo.Entity;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "user")
 public class UserEntity {
+	@Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name = "username")
 	private String username;
+	
+	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "isAdmin")
 	private boolean isAdmin;
 	
 	public Integer getId() {
