@@ -1,17 +1,19 @@
 package survey.demo.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class ReportEntity {
-	@Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer reportID;
+	private Integer surveyID;
+	private String surveyName;
 	
-	public Integer getReportID () {
-		return this.reportID;
+	public ReportEntity(Integer id, String name) {
+		this.surveyID=id;
+		this.surveyName=name;
+	}
+
+	public String getName() {
+		return surveyName;
+	}
+
+	public Integer getSurveyID() {
+		return surveyID;
 	}
 }

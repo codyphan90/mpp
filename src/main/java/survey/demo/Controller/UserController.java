@@ -2,11 +2,8 @@ package survey.demo.Controller;
 import survey.demo.Response.*;
 import survey.demo.Service.UserService;
 import survey.demo.Entity.*;
-import survey.demo.Service.*;
 import survey.demo.Constant.*;
 import survey.demo.Request.*;
-import javax.persistence.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
