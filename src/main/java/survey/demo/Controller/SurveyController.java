@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import survey.demo.Constant.URL;
 import survey.demo.Entity.ReportEntity;
 import survey.demo.Entity.SurveyEntity;
+import survey.demo.Request.SurveyRequest;
 import survey.demo.Response.ResponseEntity;
 import survey.demo.Service.SurveyService;
 
@@ -31,8 +32,8 @@ public class SurveyController {
             return new ResponseEntity<>(surveyEntity);
         }
     }
-    
-    @RequestMapping(method = RequestMethod.GET)
+
+    @RequestMapping(value ="report", method = RequestMethod.GET)
     public ResponseEntity getAllSurveyIDs() {
         logger.info("Get all Survey Ids");
         List<SurveyEntity> surveyEntities = surveyService.getAllSurvey();
@@ -46,5 +47,21 @@ public class SurveyController {
         	}
         	return new ResponseEntity<>(reportEntities);
         }
+    }
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity createSurvey(@RequestBody SurveyRequest request) {
+        SurveyEntity surveyEntity = surveyService.createSurvey(request.getSurveyEntity());
+        String successMessage = "Survey Id " + surveyEntity.getId() + " was created successfully";
+
+        return surveyEntity.getId() != null ? new ResponseEntity<>(true, null, successMessage)
+                : new ResponseEntity("Can not create survey");
+    }
+
+    @RequestMapping(value = URL.ID, method = RequestMethod.PUT)
+    public @ResponseBody ResponseEntity submitSurvey(@RequestBody SurveyRequest request) {
+        if (surveyService.submitSurvey(request.getSurveyEntity())) {
+            return new ResponseEntity<>(true, null, "Submit successfully");
+        }
+        return new ResponseEntity<> ("Can not submit");
     }
 }

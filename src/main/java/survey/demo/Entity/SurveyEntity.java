@@ -40,7 +40,7 @@ public class SurveyEntity {
         this.name = name;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return isActive;
     }
 

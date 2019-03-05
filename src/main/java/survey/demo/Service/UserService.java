@@ -1,6 +1,7 @@
 package survey.demo.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,7 @@ import survey.demo.Request.*;
 import survey.demo.Constant.*;
 import survey.demo.utils.Common;
 
+@Service
 public class UserService {
 	private Logger logger = LogManager.getLogger(UserService.class);
 	

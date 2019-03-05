@@ -10,12 +10,12 @@ public class UserEntity {
 	private Integer id;
 	
 	@Column(name = "username")
-	private String username;
+	private String userName;
 	
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "isAdmin")
+	@Column(name = "is_admin")
 	private Boolean isAdmin;
 	
 	public Integer getId() {
@@ -23,12 +23,12 @@ public class UserEntity {
     }
 
     public String getUserName() {
-        return this.username;
+        return this.userName;
     }
 
 
     public void setUserName(String userName) {
-        this.username = userName;
+        this.userName = userName;
     }
 
     public String getPassword() {

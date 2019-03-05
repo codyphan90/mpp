@@ -7,14 +7,13 @@ import survey.demo.Request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
 @RestController
-@RequestMapping(value = URL.USER_BASE_URL)
 public class UserController {
-	 @Autowired
+
+    @Autowired
 	private UserService userService;
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = URL.USER_BASE_URL,method = RequestMethod.POST)
     public @ResponseBody ResponseEntity createUser(@RequestBody UserEntity userEntity) {
 		try {
 			userEntity = userService.createUser(userEntity);
@@ -24,17 +23,8 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity registerUser(@RequestBody UserEntity userEntity) {
-		try {
-			userEntity = userService.createUser(userEntity);
-            return new ResponseEntity<>(MessageConstant.CREATE_SUCCESS.replaceAll("@@name@@", userEntity.getUserName()));
-		} catch (Exception e) {
-			return new ResponseEntity<> (false,e.getMessage());
-		} 
-	}
-	
-	@RequestMapping(method = RequestMethod.POST)
+
+	@RequestMapping(value ="login",method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
 		try {
 			String exceptionMessage = userService.login(loginRequest);

@@ -9,6 +9,7 @@ import survey.demo.Entity.QuestionEntity;
 import survey.demo.Repository.AnswerRepository;
 import survey.demo.Repository.QuestionRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -21,6 +22,9 @@ public class QuestionService {
 
     @Autowired
     private AnswerRepository answerRepository;
+
+    @Autowired
+    private AnswerService answerService;
 
 
     public QuestionEntity getQuestionById(Integer id) {
@@ -42,10 +46,23 @@ public class QuestionService {
         return questionEntityList;
     }
 
-    public QuestionEntity createQuestion(Integer surveyId, String content) {
-        QuestionEntity questionEntity = new QuestionEntity(surveyId, content);
+    @Transactional
+    public QuestionEntity createQuestion(QuestionEntity questionEntity) {
         questionEntity = questionRepository.save(questionEntity);
+
         logger.info("Created question with id [{}]", questionEntity.getId());
+        for (AnswerEntity answerEntity: questionEntity.getAnswerEntityList()) {
+            answerEntity.setQuestionId(questionEntity.getId());
+            answerService.createAnswer(answerEntity);
+        }
         return questionEntity;
+    }
+
+    public void submitRating(QuestionEntity questionEntity) {
+        QuestionEntity questionEntityInDB = questionRepository.findByIdEquals(questionEntity.getId());
+        Integer rating = questionEntityInDB.getRating();
+        rating += questionEntity.getRating();
+        questionEntityInDB.setRating(rating);
+        questionRepository.save(questionEntityInDB);
     }
 }

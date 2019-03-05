@@ -1,11 +1,11 @@
 package survey.demo.Entity;
 
 public class ReportEntity {
-	private Integer surveyID;
+	private Integer surveyId;
 	private String surveyName;
 	
 	public ReportEntity(Integer id, String name) {
-		this.surveyID=id;
+		this.surveyId =id;
 		this.surveyName=name;
 	}
 
@@ -13,7 +13,7 @@ public class ReportEntity {
 		return surveyName;
 	}
 
-	public Integer getSurveyID() {
-		return surveyID;
+	public Integer getSurveyId() {
+		return surveyId;
 	}
 }
