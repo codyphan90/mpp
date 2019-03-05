@@ -35,7 +35,7 @@ public class QuestionService {
         return questionRepository.findAllBySurveyIdEquals(surveyId);
     }
 
-    public List<QuestionEntity> getQuestionAndAnswerListBySurveyId (Integer surveyId) {
+    public List<QuestionEntity> getQuestionAndAnswerListBySurveyId(Integer surveyId) {
         List<QuestionEntity> questionEntityList = questionRepository.findAllBySurveyIdEquals(surveyId);
 
         questionEntityList.forEach(questionEntity -> {
@@ -51,7 +51,7 @@ public class QuestionService {
         questionEntity = questionRepository.save(questionEntity);
 
         logger.info("Created question with id [{}]", questionEntity.getId());
-        for (AnswerEntity answerEntity: questionEntity.getAnswerEntityList()) {
+        for (AnswerEntity answerEntity : questionEntity.getAnswerEntityList()) {
             answerEntity.setQuestionId(questionEntity.getId());
             answerService.createAnswer(answerEntity);
         }
@@ -59,10 +59,13 @@ public class QuestionService {
     }
 
     public void submitRating(QuestionEntity questionEntity) {
-        QuestionEntity questionEntityInDB = questionRepository.findByIdEquals(questionEntity.getId());
-        Integer rating = questionEntityInDB.getRating();
-        rating += questionEntity.getRating();
-        questionEntityInDB.setRating(rating);
-        questionRepository.save(questionEntityInDB);
+            QuestionEntity questionEntityInDB = questionRepository.findByIdEquals(questionEntity.getId());
+            if (questionEntityInDB !=null) {
+            Integer rating = questionEntityInDB.getRating();
+            rating += questionEntity.getRating();
+            questionEntityInDB.setRating(rating);
+            questionRepository.save(questionEntityInDB);
+            logger.info("Question Id [{}] set rating to [{}]", questionEntityInDB.getId(), questionEntityInDB.getRating());
+            }
     }
 }

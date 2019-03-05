@@ -34,12 +34,11 @@ public class AnswerService {
     }
 
     public void submitAnswer(AnswerEntity answerEntity) {
-        if(answerEntity.getSelected()) {
             AnswerEntity answerEntityInDB = answerRepository.findByIdEquals(answerEntity.getId());
             Integer count = answerEntityInDB.getCount();
             count++;
             answerEntityInDB.setCount(count);
             answerRepository.save(answerEntityInDB);
-        }
+            logger.info("Answer Id [{}] set count to [{}]", answerEntityInDB.getId(), answerEntityInDB.getCount());
     }
 }

@@ -35,8 +35,10 @@ public class SurveyService {
 
     public SurveyEntity getSurveyWithFullContent(Integer id) {
         SurveyEntity surveyEntity = surveyRepository.findByIdEquals(id);
+        if (surveyEntity != null) {
         List<QuestionEntity> questionEntityList = questionService.getQuestionAndAnswerListBySurveyId(id);
         surveyEntity.setQuestionEntityList(questionEntityList);
+        }
         return surveyEntity;
     }
 
@@ -57,9 +59,13 @@ public class SurveyService {
     @Transactional
     public Boolean submitSurvey(SurveyEntity surveyEntity) {
         surveyEntity.getQuestionEntityList().forEach(questionEntity -> {
-            questionService.submitRating(questionEntity);
+            if (questionEntity.getRating() != null) {
+                questionService.submitRating(questionEntity);
+            }
             questionEntity.getAnswerEntityList().forEach(answerEntity -> {
-                answerService.submitAnswer(answerEntity);
+                if (answerEntity.getSelected() != null && answerEntity.getSelected()) {
+                    answerService.submitAnswer(answerEntity);
+                }
             });
         });
         return true;
