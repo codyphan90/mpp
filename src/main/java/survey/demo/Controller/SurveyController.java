@@ -8,10 +8,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import survey.demo.Constant.URL;
-import survey.demo.Entity.ReportEntity;
 import survey.demo.Entity.SurveyEntity;
 import survey.demo.Request.SurveyRequest;
 import survey.demo.Response.ResponseEntity;
+import survey.demo.Response.SurveyList;
 import survey.demo.Service.SurveyService;
 
 @RestController
@@ -33,19 +33,19 @@ public class SurveyController {
         }
     }
 
-    @RequestMapping(value ="report", method = RequestMethod.GET)
+    @RequestMapping(value ="list", method = RequestMethod.GET)
     public ResponseEntity getAllSurveyIDs() {
         logger.info("Get all Survey Ids");
         List<SurveyEntity> surveyEntities = surveyService.getAllSurvey();
-        List<ReportEntity> reportEntities = new ArrayList<>();
+        List<SurveyList> surveyList = new ArrayList<>();
         if (surveyEntities == null) {
             return new ResponseEntity("Can not find any survey");
         } else {
         	for (SurveyEntity ele: surveyEntities) {
-        		ReportEntity report = new ReportEntity(ele.getId(),ele.getName());
-        		reportEntities.add(report);
+        		SurveyList survey = new SurveyList(ele.getId(),ele.getName());
+        		surveyList.add(survey);
         	}
-        	return new ResponseEntity<>(reportEntities);
+        	return new ResponseEntity<>(surveyList);
         }
     }
     @RequestMapping(method = RequestMethod.POST)

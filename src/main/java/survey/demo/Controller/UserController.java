@@ -36,7 +36,5 @@ public class UserController {
 		} catch (Exception e) {
 			return new ResponseEntity<> (false,e.getMessage());
 		}
-	}
-    
-	
+	}	
 }

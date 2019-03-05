@@ -1,10 +1,10 @@
-package survey.demo.Entity;
+package survey.demo.Response;
 
-public class ReportEntity {
+public class SurveyList {
 	private Integer surveyId;
 	private String surveyName;
 	
-	public ReportEntity(Integer id, String name) {
+	public SurveyList(Integer id, String name) {
 		this.surveyId =id;
 		this.surveyName=name;
 	}
