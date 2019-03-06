@@ -1,18 +1,21 @@
 package survey.demo.Controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import survey.demo.Constant.URL;
 import survey.demo.Entity.SurveyEntity;
 import survey.demo.Request.SurveyRequest;
 import survey.demo.Response.ResponseEntity;
 import survey.demo.Response.Survey;
 import survey.demo.Service.SurveyService;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -65,4 +68,10 @@ public class SurveyController {
         }
         return new ResponseEntity<> ("Can not submit");
     }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST,produces = { MediaType.ALL_VALUE })
+    public void uploadCSV(@RequestParam("file") MultipartFile file) throws IOException {
+        surveyService.createSurveyFromCSV(file);
+    }
+
 }

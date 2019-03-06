@@ -27,6 +27,10 @@ public class AnswerEntity {
     public AnswerEntity() {
     }
 
+    public AnswerEntity(String content) {
+        this.content = content;
+    }
+
     public AnswerEntity(Integer questionId, String content) {
         this.questionId = questionId;
         this.content = content;

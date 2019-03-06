@@ -1,14 +1,24 @@
 package survey.demo.Service;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import survey.demo.Entity.AnswerEntity;
 import survey.demo.Entity.QuestionEntity;
 import survey.demo.Entity.SurveyEntity;
 import survey.demo.Repository.SurveyRepository;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -45,8 +55,8 @@ public class SurveyService {
     @Transactional
     public SurveyEntity createSurvey(SurveyEntity surveyEntity) {
         if(surveyEntity.isActive() == null) surveyEntity.setActive(true);
-
         surveyEntity = surveyRepository.save(surveyEntity);
+        if(StringUtils.isEmpty(surveyEntity.getName())) surveyEntity.setName("Survey " + surveyEntity.getId());
         logger.info("Created survey with id [{}]", surveyEntity.getId());
 
         for (QuestionEntity questionEntity: surveyEntity.getQuestionEntityList()) {
@@ -69,5 +79,38 @@ public class SurveyService {
             });
         });
         return true;
+    }
+
+    public Boolean createSurveyFromCSV(MultipartFile file) throws IOException {
+        CSVParser csvParser = CSVFormat.EXCEL.parse(new InputStreamReader(file.getInputStream()));
+        SurveyEntity surveyEntity = new SurveyEntity();
+        surveyEntity.setQuestionEntityList(new ArrayList<>());
+
+        for (CSVRecord csvRecord : csvParser) {
+            surveyEntity.getQuestionEntityList().add(buildQuestionFromCSV(csvRecord));
+        }
+        SurveyEntity surveyInDB = createSurvey(surveyEntity);
+        logger.info("Import CSV completely");
+        return surveyInDB.getId() != null ;
+
+    }
+
+    private QuestionEntity buildQuestionFromCSV(CSVRecord csvRecord) {
+        QuestionEntity questionEntity = new QuestionEntity();
+        questionEntity.setContent(csvRecord.get(0));
+        questionEntity.setAnswerEntityList(buildAnswerFromCSV(csvRecord));
+        return questionEntity;
+    }
+
+    private List<AnswerEntity> buildAnswerFromCSV(CSVRecord csvRecord) {
+        AnswerEntity answerEntity1 = new AnswerEntity(csvRecord.get(1));
+        AnswerEntity answerEntity2 = new AnswerEntity(csvRecord.get(2));
+        AnswerEntity answerEntity3 = new AnswerEntity(csvRecord.get(3));
+        AnswerEntity answerEntity4 = new AnswerEntity(csvRecord.get(4));
+
+        List<AnswerEntity> answerEntityList = new ArrayList<>(
+                Arrays.asList(answerEntity1, answerEntity2, answerEntity3, answerEntity4));
+        answerEntityList.get(Integer.parseInt(csvRecord.get(5))-1).setDefault(true);
+        return answerEntityList;
     }
 }

@@ -28,6 +28,7 @@ public class AnswerService {
 
 
     public AnswerEntity createAnswer(AnswerEntity answerEntity) {
+        if (answerEntity.getCount() == null) answerEntity.setCount(0);
         answerEntity = answerRepository.save(answerEntity);
         logger.info("Created answer with id [{}]", answerEntity.getId());
         return answerEntity;
@@ -36,6 +37,7 @@ public class AnswerService {
     public void submitAnswer(AnswerEntity answerEntity) {
             AnswerEntity answerEntityInDB = answerRepository.findByIdEquals(answerEntity.getId());
             Integer count = answerEntityInDB.getCount();
+            if(count == null) count = 0;
             count++;
             answerEntityInDB.setCount(count);
             answerRepository.save(answerEntityInDB);
