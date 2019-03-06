@@ -14,6 +14,7 @@ import survey.demo.Response.ResponseEntity;
 import survey.demo.Response.Survey;
 import survey.demo.Service.SurveyService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = URL.SURVEY_URL)
 public class SurveyController {
