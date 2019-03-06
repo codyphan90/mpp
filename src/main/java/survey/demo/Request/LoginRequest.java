@@ -1,8 +1,12 @@
 package survey.demo.Request;
 
-public class LoginRequest {
-	private String userName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public class LoginRequest {
+	@JsonProperty("userName")
+	private String userName;
+	
+	@JsonProperty("password")
     private String password;
 
     public String getUserName() {

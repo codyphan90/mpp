@@ -1,10 +1,10 @@
 package survey.demo.Response;
 
-public class SurveyList {
+public class Survey {
 	private Integer surveyId;
 	private String surveyName;
 	
-	public SurveyList(Integer id, String name) {
+	public Survey(Integer id, String name) {
 		this.surveyId =id;
 		this.surveyName=name;
 	}

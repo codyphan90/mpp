@@ -11,7 +11,7 @@ import survey.demo.Constant.URL;
 import survey.demo.Entity.SurveyEntity;
 import survey.demo.Request.SurveyRequest;
 import survey.demo.Response.ResponseEntity;
-import survey.demo.Response.SurveyList;
+import survey.demo.Response.Survey;
 import survey.demo.Service.SurveyService;
 
 @RestController
@@ -37,12 +37,12 @@ public class SurveyController {
     public ResponseEntity getAllSurveyIDs() {
         logger.info("Get all Survey Ids");
         List<SurveyEntity> surveyEntities = surveyService.getAllSurvey();
-        List<SurveyList> surveyList = new ArrayList<>();
+        List<Survey> surveyList = new ArrayList<>();
         if (surveyEntities == null) {
             return new ResponseEntity("Can not find any survey");
         } else {
         	for (SurveyEntity ele: surveyEntities) {
-        		SurveyList survey = new SurveyList(ele.getId(),ele.getName());
+        		Survey survey = new Survey(ele.getId(),ele.getName());
         		surveyList.add(survey);
         	}
         	return new ResponseEntity<>(surveyList);

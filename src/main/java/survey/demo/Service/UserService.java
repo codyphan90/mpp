@@ -23,8 +23,11 @@ public class UserService {
 	
 	public UserEntity createUser(UserEntity userEntity) {
 		logger.info("Create new user with userName [{}]", userEntity.getUserName());
-		userEntity.setPassword(Common.hash(userEntity.getPassword()));
-        return usersRepository.save(userEntity);
+		if (!StringUtils.isEmpty(userEntity.getUserName())){
+			userEntity.setPassword(Common.hash(userEntity.getPassword()));
+			return usersRepository.save(userEntity);
+		}
+		return null;
 	}
 	
 	public String login (LoginRequest loginRequest) {

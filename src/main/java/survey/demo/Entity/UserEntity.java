@@ -18,6 +18,21 @@ public class UserEntity {
 	@Column(name = "is_admin")
 	private Boolean isAdmin;
 	
+	public UserEntity() {
+	}
+	
+	public UserEntity(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+		this.isAdmin = false;
+	}
+	
+	public UserEntity(String userName, String password, Boolean isAdmin) {
+		this.userName = userName;
+		this.password = password;
+		this.isAdmin = isAdmin;
+	}
+
 	public Integer getId() {
         return this.id;
     }
