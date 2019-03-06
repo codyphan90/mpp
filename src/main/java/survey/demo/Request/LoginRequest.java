@@ -8,7 +8,18 @@ public class LoginRequest {
 	
 	@JsonProperty("password")
     private String password;
+	
+	@JsonProperty("isAdmin")
+    private Boolean isAdmin;
 
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
     public String getUserName() {
         return userName;
     }
