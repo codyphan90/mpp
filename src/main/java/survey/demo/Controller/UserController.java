@@ -16,12 +16,17 @@ public class UserController {
 	@RequestMapping(value = URL.USER_BASE_URL,method = RequestMethod.POST)
     public @ResponseBody ResponseEntity createUser(@RequestBody UserRequest userRequest) {
 		try {
-			UserEntity userEntity = userService.createUser(userRequest.getUser());
-			if (userEntity.getId()!=null) {
-				return new ResponseEntity<>(true,null,MessageConstant.CREATE_SUCCESS.replaceAll("@@user@@", userEntity.getUserName()));
-			} else {
-				return new ResponseEntity<>(false,MessageConstant.CREATE_USER_FAIL.replaceAll("@@user@@", userEntity.getUserName()));
-			}
+			String exceptionMessage = userService.validateCreateUser(userRequest.getUser());
+            if (exceptionMessage != null) {
+                return new ResponseEntity<>(false, exceptionMessage);
+            } else {
+				UserEntity userEntity = userService.createUser(userRequest.getUser());
+				if (userEntity.getId()!=null) {
+					return new ResponseEntity<>(true,null,MessageConstant.CREATE_SUCCESS.replaceAll("@@user@@", userEntity.getUserName()));
+				} else {
+					return new ResponseEntity<>(false,MessageConstant.CREATE_USER_FAIL.replaceAll("@@user@@", userEntity.getUserName()));
+				}
+            }
 		} catch (Exception e) {
 			return new ResponseEntity<> (false,e.getMessage());
 		}

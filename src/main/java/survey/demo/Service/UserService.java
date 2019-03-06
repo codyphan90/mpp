@@ -21,6 +21,16 @@ public class UserService {
 	@Autowired
     protected Common commonService;
 	
+	public String validateCreateUser(UserEntity userEntity) {
+		logger.info("validate new userName [{}]", userEntity.getUserName());
+
+        if (userEntity.getUserName() == null) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
+        if (userEntity.getPassword() == null) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
+        Integer entityCheckDuplicate = usersRepository.countByUserName(userEntity.getUserName());
+
+        if (entityCheckDuplicate > 0) return String.format(MessageConstant.DUPLICATE_EXCEPTION_MESSAGE, "User " + userEntity.getUserName());
+        return null;
+	}
 	public UserEntity createUser(UserEntity userEntity) {
 		logger.info("Create new user with userName [{}]", userEntity.getUserName());
 		if (!StringUtils.isEmpty(userEntity.getUserName())){
