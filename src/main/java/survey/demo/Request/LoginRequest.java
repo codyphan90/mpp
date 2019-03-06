@@ -2,37 +2,17 @@ package survey.demo.Request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import survey.demo.Entity.UserEntity;
+
 public class LoginRequest {
-	@JsonProperty("userName")
-	private String userName;
-	
-	@JsonProperty("password")
-    private String password;
-	
-	@JsonProperty("isAdmin")
-    private Boolean isAdmin;
+	@JsonProperty("userEntity")
+	private UserEntity user;
 
-	public Boolean getIsAdmin() {
-		return isAdmin;
+	public UserEntity getUser() {
+		return user;
 	}
 
-	public void setIsAdmin(Boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
-	
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

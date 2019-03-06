@@ -35,13 +35,13 @@ public class UserController {
 
 	@RequestMapping(value ="login",method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-		if (!loginRequest.getIsAdmin()) return new ResponseEntity<>(false, MessageConstant.NOT_ADMIN);
+		if (!loginRequest.getUser().getIsAdmin()) return new ResponseEntity<>(false, MessageConstant.NOT_ADMIN);
 		try {
 			String exceptionMessage = userService.login(loginRequest);
 			if (exceptionMessage != null) {
 				return new ResponseEntity<>(false, exceptionMessage);
 			} else {
-			       return new ResponseEntity<>(MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUserName()));
+			       return new ResponseEntity<>(MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()));
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<> (false,e.getMessage());

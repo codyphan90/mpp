@@ -31,6 +31,7 @@ public class UserService {
         if (entityCheckDuplicate > 0) return String.format(MessageConstant.DUPLICATE_EXCEPTION_MESSAGE, "User " + userEntity.getUserName());
         return null;
 	}
+	
 	public UserEntity createUser(UserEntity userEntity) {
 		logger.info("Create new user with userName [{}]", userEntity.getUserName());
 		if (!StringUtils.isEmpty(userEntity.getUserName())){
@@ -41,12 +42,12 @@ public class UserService {
 	}
 	
 	public String login (LoginRequest loginRequest) {
-		logger.info("Validate userName [{}] login", loginRequest.getUserName());
-		if (StringUtils.isEmpty(loginRequest.getUserName())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
-        if (StringUtils.isEmpty(loginRequest.getPassword())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
-        UserEntity userEntity = usersRepository.findByUserNameEquals(loginRequest.getUserName());
+		logger.info("Validate userName [{}] login", loginRequest.getUser().getUserName());
+		if (StringUtils.isEmpty(loginRequest.getUser().getUserName())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
+        if (StringUtils.isEmpty(loginRequest.getUser().getPassword())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
+        UserEntity userEntity = usersRepository.findByUserNameEquals(loginRequest.getUser().getUserName());
         if (userEntity == null) return MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID;
-        String loginPassword = Common.hash(loginRequest.getPassword());
+        String loginPassword = Common.hash(loginRequest.getUser().getPassword());
         if (!loginPassword.equals(userEntity.getPassword())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID;
         return null;
 	}
