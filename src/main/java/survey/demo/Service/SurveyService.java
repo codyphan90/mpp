@@ -74,7 +74,7 @@ public class SurveyService {
                 if (questionEntity.getRating() != null) {
                     questionService.submitRating(questionEntity);
                 }
-                questionEntity.getAnswerEntityList().forEach(answerEntity -> {
+                questionEntity.getMcAnswerEntityList().forEach(answerEntity -> {
                     if (answerEntity.getSelected() != null && answerEntity.getSelected()) {
                         answerService.submitMCAnswer(answerEntity);
                     }
@@ -110,7 +110,7 @@ public class SurveyService {
         questionEntity.setContent(csvRecord.get(0));
         questionEntity.setType(csvRecord.get(1).toString());
         if (questionEntity.getType().toUpperCase().equals(QuestionType.MC.toString())) {
-            questionEntity.setAnswerEntityList(buildMCAnswerFromCSV(csvRecord));
+            questionEntity.setMcAnswerEntityList(buildMCAnswerFromCSV(csvRecord));
         }
         return questionEntity;
     }

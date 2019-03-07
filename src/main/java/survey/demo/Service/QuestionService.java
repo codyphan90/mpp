@@ -14,7 +14,6 @@ import survey.demo.Repository.QuestionRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 
 
 @Service
@@ -48,7 +47,7 @@ public class QuestionService {
         questionEntityList.forEach(questionEntity -> {
             if (questionEntity.getType().toUpperCase().equals(QuestionType.MC.toString())) {
                 List<MCAnswerEntity> answerEntityList = answerRepository.findAllByQuestionIdEquals(questionEntity.getId());
-                questionEntity.setAnswerEntityList(answerEntityList);
+                questionEntity.setMcAnswerEntityList(answerEntityList);
             } else if (questionEntity.getType().toUpperCase().equals(QuestionType.OE.toString())) {
                 List<OEAnswerEntity> answerEntityList = oeAnswerRepository.findAllByQuestionIdEquals(questionEntity.getId());
                 questionEntity.setOeAnswerEntityList(answerEntityList);
@@ -64,7 +63,7 @@ public class QuestionService {
 
         logger.info("Created question with id [{}]", questionEntity.getId());
         if (questionEntity.getType().toUpperCase().equals(QuestionType.MC.toString())) {
-            for (MCAnswerEntity answerEntity : questionEntity.getAnswerEntityList()) {
+            for (MCAnswerEntity answerEntity : questionEntity.getMcAnswerEntityList()) {
                 answerEntity.setQuestionId(questionEntity.getId());
                 answerService.createMCAnswer(answerEntity);
             }

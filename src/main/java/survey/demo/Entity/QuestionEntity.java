@@ -26,7 +26,7 @@ public class QuestionEntity {
     private Double rating;
 
     @OneToMany(mappedBy = "questionId")
-    List<MCAnswerEntity> answerEntityList;
+    List<MCAnswerEntity> mcAnswerEntityList;
 
     @OneToMany(mappedBy = "questionId")
     List<OEAnswerEntity> oeAnswerEntityList;
@@ -75,12 +75,12 @@ public class QuestionEntity {
         this.rating = rating;
     }
 
-    public List<MCAnswerEntity> getAnswerEntityList() {
-        return answerEntityList;
+    public List<MCAnswerEntity> getMcAnswerEntityList() {
+        return mcAnswerEntityList;
     }
 
-    public void setAnswerEntityList(List<MCAnswerEntity> answerEntityList) {
-        this.answerEntityList = answerEntityList;
+    public void setMcAnswerEntityList(List<MCAnswerEntity> mcAnswerEntityList) {
+        this.mcAnswerEntityList = mcAnswerEntityList;
     }
 
     public List<OEAnswerEntity> getOeAnswerEntityList() {

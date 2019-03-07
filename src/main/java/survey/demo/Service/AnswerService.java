@@ -33,7 +33,7 @@ public class AnswerService {
     public MCAnswerEntity createMCAnswer(MCAnswerEntity answerEntity) {
         if (answerEntity.getCount() == null) answerEntity.setCount(0);
         answerEntity = answerRepository.save(answerEntity);
-        logger.info("Created answer with id [{}]", answerEntity.getId());
+        logger.info("Created mcAnswer with id [{}]", answerEntity.getId());
         return answerEntity;
     }
 
@@ -49,7 +49,7 @@ public class AnswerService {
 
     public OEAnswerEntity createOEAnswer(OEAnswerEntity answerEntity) {
         answerEntity = oeAnswerRepository.save(answerEntity);
-        logger.info("Created answer with id [{}]", answerEntity.getId());
+        logger.info("Created oeAnswer with id [{}]", answerEntity.getId());
         return answerEntity;
     }
 
