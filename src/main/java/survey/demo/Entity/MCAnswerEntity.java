@@ -3,8 +3,8 @@ package survey.demo.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "answer")
-public class AnswerEntity {
+@Table(name = "mc_answer")
+public class MCAnswerEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +24,14 @@ public class AnswerEntity {
     @Column(name = "is_default")
     private Boolean isDefault;
 
-    public AnswerEntity() {
+    public MCAnswerEntity() {
     }
 
-    public AnswerEntity(String content) {
+    public MCAnswerEntity(String content) {
         this.content = content;
     }
 
-    public AnswerEntity(Integer questionId, String content) {
+    public MCAnswerEntity(Integer questionId, String content) {
         this.questionId = questionId;
         this.content = content;
     }

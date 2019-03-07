@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import survey.demo.Entity.AnswerEntity;
+import survey.demo.Entity.MCAnswerEntity;
+import survey.demo.Entity.OEAnswerEntity;
 import survey.demo.Entity.QuestionEntity;
 import survey.demo.Entity.SurveyEntity;
 import survey.demo.Repository.SurveyRepository;
+import survey.demo.Constant.*;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -21,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-enum QuestionType {mc, oe};
 @Service
 public class SurveyService {
     private Logger logger = LogManager.getLogger(SurveyService.class);
@@ -69,14 +70,23 @@ public class SurveyService {
     @Transactional
     public Boolean submitSurvey(SurveyEntity surveyEntity) {
         surveyEntity.getQuestionEntityList().forEach(questionEntity -> {
-            if (questionEntity.getRating() != null) {
-                questionService.submitRating(questionEntity);
-            }
-            questionEntity.getAnswerEntityList().forEach(answerEntity -> {
-                if (answerEntity.getSelected() != null && answerEntity.getSelected()) {
-                    answerService.submitAnswer(answerEntity);
+            if (questionEntity.getType().toUpperCase().equals(QuestionType.MC.toString())) {
+                if (questionEntity.getRating() != null) {
+                    questionService.submitRating(questionEntity);
                 }
-            });
+                questionEntity.getAnswerEntityList().forEach(answerEntity -> {
+                    if (answerEntity.getSelected() != null && answerEntity.getSelected()) {
+                        answerService.submitMCAnswer(answerEntity);
+                    }
+                });
+            } else if (questionEntity.getType().toUpperCase().equals(QuestionType.OE.toString())) {
+                if (questionEntity.getOeAnswerEntityList()!=null) {
+                    List<OEAnswerEntity> list = questionEntity.getOeAnswerEntityList();
+                    for(OEAnswerEntity ele:list) {
+                        answerService.createOEAnswer(ele);
+                    }
+                }
+            }
         });
         return true;
     }
@@ -99,19 +109,19 @@ public class SurveyService {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setContent(csvRecord.get(0));
         questionEntity.setType(csvRecord.get(1).toString());
-        if (questionEntity.getType().toLowerCase().equals(QuestionType.mc)) {
+        if (questionEntity.getType().toUpperCase().equals(QuestionType.MC.toString())) {
             questionEntity.setAnswerEntityList(buildMCAnswerFromCSV(csvRecord));
         }
         return questionEntity;
     }
 
-    private List<AnswerEntity> buildMCAnswerFromCSV(CSVRecord csvRecord) {
-        AnswerEntity answerEntity1 = new AnswerEntity(csvRecord.get(2));
-        AnswerEntity answerEntity2 = new AnswerEntity(csvRecord.get(3));
-        AnswerEntity answerEntity3 = new AnswerEntity(csvRecord.get(4));
-        AnswerEntity answerEntity4 = new AnswerEntity(csvRecord.get(5));
+    private List<MCAnswerEntity> buildMCAnswerFromCSV(CSVRecord csvRecord) {
+        MCAnswerEntity answerEntity1 = new MCAnswerEntity(csvRecord.get(2));
+        MCAnswerEntity answerEntity2 = new MCAnswerEntity(csvRecord.get(3));
+        MCAnswerEntity answerEntity3 = new MCAnswerEntity(csvRecord.get(4));
+        MCAnswerEntity answerEntity4 = new MCAnswerEntity(csvRecord.get(5));
 
-        List<AnswerEntity> answerEntityList = new ArrayList<>(
+        List<MCAnswerEntity> answerEntityList = new ArrayList<>(
                 Arrays.asList(answerEntity1, answerEntity2, answerEntity3, answerEntity4));
         answerEntityList.get(Integer.parseInt(csvRecord.get(6))-1).setDefault(true);
         return answerEntityList;

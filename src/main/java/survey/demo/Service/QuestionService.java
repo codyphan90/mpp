@@ -4,13 +4,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import survey.demo.Entity.AnswerEntity;
+import survey.demo.Constant.QuestionType;
+import survey.demo.Entity.MCAnswerEntity;
+import survey.demo.Entity.OEAnswerEntity;
 import survey.demo.Entity.QuestionEntity;
-import survey.demo.Repository.AnswerRepository;
+import survey.demo.Repository.MCAnswerRepository;
+import survey.demo.Repository.OEAnswerRepository;
 import survey.demo.Repository.QuestionRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -21,7 +25,10 @@ public class QuestionService {
     private QuestionRepository questionRepository;
 
     @Autowired
-    private AnswerRepository answerRepository;
+    private MCAnswerRepository answerRepository;
+
+    @Autowired
+    private OEAnswerRepository oeAnswerRepository;
 
     @Autowired
     private AnswerService answerService;
@@ -39,8 +46,13 @@ public class QuestionService {
         List<QuestionEntity> questionEntityList = questionRepository.findAllBySurveyIdEquals(surveyId);
 
         questionEntityList.forEach(questionEntity -> {
-            List<AnswerEntity> answerEntityList = answerRepository.findAllByQuestionIdEquals(questionEntity.getId());
-            questionEntity.setAnswerEntityList(answerEntityList);
+            if (questionEntity.getType().toUpperCase().equals(QuestionType.MC.toString())) {
+                List<MCAnswerEntity> answerEntityList = answerRepository.findAllByQuestionIdEquals(questionEntity.getId());
+                questionEntity.setAnswerEntityList(answerEntityList);
+            } else if (questionEntity.getType().toUpperCase().equals(QuestionType.OE.toString())) {
+                List<OEAnswerEntity> answerEntityList = oeAnswerRepository.findAllByQuestionIdEquals(questionEntity.getId());
+                questionEntity.setOeAnswerEntityList(answerEntityList);
+            }
         });
         logger.info("Found [{}] questions of survey Id [{}]", questionEntityList.size(), surveyId);
         return questionEntityList;
@@ -52,9 +64,18 @@ public class QuestionService {
         questionEntity = questionRepository.save(questionEntity);
 
         logger.info("Created question with id [{}]", questionEntity.getId());
-        for (AnswerEntity answerEntity : questionEntity.getAnswerEntityList()) {
-            answerEntity.setQuestionId(questionEntity.getId());
-            answerService.createAnswer(answerEntity);
+        if (questionEntity.getType().toUpperCase().equals(QuestionType.MC.toString())) {
+            for (MCAnswerEntity answerEntity : questionEntity.getAnswerEntityList()) {
+                answerEntity.setQuestionId(questionEntity.getId());
+                answerService.createMCAnswer(answerEntity);
+            }
+        } else if (questionEntity.getType().toUpperCase().equals(QuestionType.OE.toString())) {
+            if (questionEntity.getOeAnswerEntityList()!=null) {
+                for (OEAnswerEntity answerEntity : questionEntity.getOeAnswerEntityList()) {
+                    answerEntity.setQuestionId(questionEntity.getId());
+                    answerService.createOEAnswer(answerEntity);
+                }
+            }
         }
         return questionEntity;
     }
@@ -68,9 +89,5 @@ public class QuestionService {
             questionRepository.save(questionEntityInDB);
             logger.info("Question Id [{}] set rating to [{}]", questionEntityInDB.getId(), questionEntityInDB.getRating());
             }
-    }
-    public List<QuestionEntity> getAllQuestions() {
-        List<QuestionEntity> questionList = questionRepository.findAll();
-        return questionList;
     }
 }
