@@ -10,7 +10,7 @@ public class OEAnswerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private Integer userId;
 
     @Column(name = "questionId")
