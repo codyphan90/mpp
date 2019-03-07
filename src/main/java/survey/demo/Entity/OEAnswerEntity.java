@@ -19,6 +19,9 @@ public class OEAnswerEntity {
     @Column(name = "content")
     private String content;
 
+    public OEAnswerEntity() {
+    }
+
     public OEAnswerEntity(Integer userId, Integer questionId, String content) {
         this.userId = userId;
         this.questionId = questionId;

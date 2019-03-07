@@ -80,7 +80,7 @@ public class SurveyService {
                     }
                 });
             } else if (questionEntity.getType().toUpperCase().equals(QuestionType.OE.toString())) {
-                if (questionEntity.getOeAnswerEntityList()!=null) {
+                if (questionEntity.getOeAnswerEntityList()!= null) {
                     List<OEAnswerEntity> list = questionEntity.getOeAnswerEntityList();
                     for(OEAnswerEntity ele:list) {
                         answerService.createOEAnswer(ele);
@@ -123,7 +123,9 @@ public class SurveyService {
 
         List<MCAnswerEntity> answerEntityList = new ArrayList<>(
                 Arrays.asList(answerEntity1, answerEntity2, answerEntity3, answerEntity4));
+        if(!StringUtils.isEmpty(csvRecord.get(6))) {
         answerEntityList.get(Integer.parseInt(csvRecord.get(6))-1).setDefault(true);
+        }
         return answerEntityList;
     }
 }

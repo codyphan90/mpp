@@ -60,7 +60,6 @@ public class QuestionService {
 
     @Transactional
     public QuestionEntity createQuestion(QuestionEntity questionEntity) {
-        if (questionEntity.getRating() == null) questionEntity.setRating(0);
         questionEntity = questionRepository.save(questionEntity);
 
         logger.info("Created question with id [{}]", questionEntity.getId());
@@ -81,13 +80,17 @@ public class QuestionService {
     }
 
     public void submitRating(QuestionEntity questionEntity) {
-            QuestionEntity questionEntityInDB = questionRepository.findByIdEquals(questionEntity.getId());
-            if (questionEntityInDB != null) {
-            Integer rating = questionEntityInDB.getRating();
-            rating += questionEntity.getRating();
+        QuestionEntity questionEntityInDB = questionRepository.findByIdEquals(questionEntity.getId());
+        if (questionEntityInDB != null) {
+            Double rating = questionEntityInDB.getRating();
+            if (rating == null) {
+                rating = questionEntity.getRating();
+            } else {
+                rating = (rating + questionEntity.getRating()) / 2;
+            }
             questionEntityInDB.setRating(rating);
             questionRepository.save(questionEntityInDB);
             logger.info("Question Id [{}] set rating to [{}]", questionEntityInDB.getId(), questionEntityInDB.getRating());
-            }
+        }
     }
 }

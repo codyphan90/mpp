@@ -23,7 +23,7 @@ public class QuestionEntity {
     private String type;
 
     @Column(name = "rating")
-    private Integer rating;
+    private Double rating;
 
     @OneToMany(mappedBy = "questionId")
     List<MCAnswerEntity> answerEntityList;
@@ -37,7 +37,6 @@ public class QuestionEntity {
     public QuestionEntity(Integer surveyId, String content) {
         this.surveyId = surveyId;
         this.content = content;
-        this.rating = 0;
     }
 
     public Integer getId() {
@@ -68,11 +67,11 @@ public class QuestionEntity {
         this.type = type;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
