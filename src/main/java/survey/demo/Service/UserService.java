@@ -49,6 +49,8 @@ public class UserService {
         if (userEntity == null) return MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID;
         String loginPassword = Common.hash(loginRequest.getUser().getPassword());
         if (!loginPassword.equals(userEntity.getPassword())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID;
-        return null;
+		if ((loginRequest.getUser().getIsAdmin())&&(!loginRequest.getUser().getIsAdmin().equals(userEntity.getIsAdmin()))) return MessageConstant.NOT_ADMIN;
+		logger.info("UserName [{}] login successfully", loginRequest.getUser().getUserName());
+		return null;
 	}
 }

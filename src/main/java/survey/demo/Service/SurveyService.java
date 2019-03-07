@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+enum QuestionType {mc, oe};
 @Service
 public class SurveyService {
     private Logger logger = LogManager.getLogger(SurveyService.class);
@@ -98,19 +98,22 @@ public class SurveyService {
     private QuestionEntity buildQuestionFromCSV(CSVRecord csvRecord) {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setContent(csvRecord.get(0));
-        questionEntity.setAnswerEntityList(buildAnswerFromCSV(csvRecord));
+        questionEntity.setType(csvRecord.get(1).toString());
+        if (questionEntity.getType().toLowerCase().equals(QuestionType.mc)) {
+            questionEntity.setAnswerEntityList(buildMCAnswerFromCSV(csvRecord));
+        }
         return questionEntity;
     }
 
-    private List<AnswerEntity> buildAnswerFromCSV(CSVRecord csvRecord) {
-        AnswerEntity answerEntity1 = new AnswerEntity(csvRecord.get(1));
-        AnswerEntity answerEntity2 = new AnswerEntity(csvRecord.get(2));
-        AnswerEntity answerEntity3 = new AnswerEntity(csvRecord.get(3));
-        AnswerEntity answerEntity4 = new AnswerEntity(csvRecord.get(4));
+    private List<AnswerEntity> buildMCAnswerFromCSV(CSVRecord csvRecord) {
+        AnswerEntity answerEntity1 = new AnswerEntity(csvRecord.get(2));
+        AnswerEntity answerEntity2 = new AnswerEntity(csvRecord.get(3));
+        AnswerEntity answerEntity3 = new AnswerEntity(csvRecord.get(4));
+        AnswerEntity answerEntity4 = new AnswerEntity(csvRecord.get(5));
 
         List<AnswerEntity> answerEntityList = new ArrayList<>(
                 Arrays.asList(answerEntity1, answerEntity2, answerEntity3, answerEntity4));
-        answerEntityList.get(Integer.parseInt(csvRecord.get(5))-1).setDefault(true);
+        answerEntityList.get(Integer.parseInt(csvRecord.get(6))-1).setDefault(true);
         return answerEntityList;
     }
 }

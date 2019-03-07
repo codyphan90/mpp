@@ -69,4 +69,8 @@ public class QuestionService {
             logger.info("Question Id [{}] set rating to [{}]", questionEntityInDB.getId(), questionEntityInDB.getRating());
             }
     }
+    public List<QuestionEntity> getAllQuestions() {
+        List<QuestionEntity> questionList = questionRepository.findAll();
+        return questionList;
+    }
 }

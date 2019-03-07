@@ -19,6 +19,9 @@ public class QuestionEntity {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "type")
+    private String type;
+
     @Column(name = "rating")
     private Integer rating;
 
@@ -52,6 +55,14 @@ public class QuestionEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Integer getRating() {
