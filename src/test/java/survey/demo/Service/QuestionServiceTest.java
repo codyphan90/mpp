@@ -73,13 +73,13 @@ public class QuestionServiceTest {
         mcAnswerEntity.setSelected(true);
         OEAnswerEntity oeAnswerEntity = new OEAnswerEntity();
 
-        QuestionEntity mcQuestionEntity = new QuestionEntity();
+        mcQuestionEntity = new QuestionEntity();
         mcQuestionEntity.setId(1);
         mcQuestionEntity.setType("mc");
         mcQuestionEntity.setRating(3.4);
         mcQuestionEntity.setMcAnswerEntityList(new ArrayList<>(Arrays.asList(mcAnswerEntity)));
 
-        QuestionEntity oeQuestionEntity = new QuestionEntity();
+        oeQuestionEntity = new QuestionEntity();
         oeQuestionEntity.setId(2);
         oeQuestionEntity.setType("oe");
         oeQuestionEntity.setRating(5.0);

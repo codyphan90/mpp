@@ -65,11 +65,11 @@ public class AnswerServiceTest {
     }
 
     public void buildAnswerEntity () {
-        MCAnswerEntity mcAnswerEntity = new MCAnswerEntity();
+        mcAnswerEntity = new MCAnswerEntity();
         mcAnswerEntity.setId(1);
         mcAnswerEntity.setQuestionId(1);
         mcAnswerEntity.setSelected(true);
-        OEAnswerEntity oeAnswerEntity = new OEAnswerEntity();
+        oeAnswerEntity = new OEAnswerEntity();
         oeAnswerEntity.setId(2);
         oeAnswerEntity.setQuestionId(2);
     }
