@@ -15,6 +15,7 @@ import survey.demo.Repository.SurveyRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -38,24 +39,37 @@ public class SurveyServiceTest {
 
     @Before
     public void setUp() {
-
+        buildSurveyEntity();
     }
 
     @Test
     public void test__getSurveyById__returnSucess() {
+        when(surveyRepositoryMock.findByIdEquals(any())).thenReturn(surveyEntity);
+
+        SurveyEntity result = surveyService.getSurveyById(surveyEntity.getId());
+        assertEquals(surveyEntity.getId(), result.getId());
     }
 
     @Test
     public void getAllSurvey() {
+        List<SurveyEntity> list = new ArrayList<>(Arrays.asList(surveyEntity));
+        when(surveyRepositoryMock.findAllByIsActive(any())).thenReturn(list);
+
+        List<SurveyEntity> result = surveyService.getAllSurvey();
+        assertEquals(result.get(0),list.get(0));
     }
 
     @Test
     public void getSurveyWithFullContent() {
+        when(surveyRepositoryMock.findByIdEquals(any())).thenReturn(surveyEntity);
+        when(questionServiceMock.getQuestionAndAnswerListBySurveyId(any())).thenReturn(new ArrayList<QuestionEntity>());
+
+        SurveyEntity result = surveyService.getSurveyWithFullContent(surveyEntity.getId());
+        assertEquals(surveyEntity.getId(), result.getId());
     }
 
     @Test
     public void test__createSurvey__returnSuccess() {
-        buildSurveyEntity();
         when(surveyRepositoryMock.save(any())).thenReturn(surveyEntity);
         when(questionServiceMock.createQuestion(any())).thenReturn(new QuestionEntity());
 
@@ -65,7 +79,6 @@ public class SurveyServiceTest {
 
     @Test
     public void submitSurvey() {
-        buildSurveyEntity();
         doNothing().when(questionServiceMock).submitRating(any());
         doNothing().when(answerServiceMock).submitMCAnswer(any());
 
@@ -77,8 +90,18 @@ public class SurveyServiceTest {
 
     @Test
     public void createSurveyFromCSV() {
+
     }
 
+    @Test
+    public void buildQuestionFromCSV() {
+
+    }
+
+    @Test
+    public void buildMCAnswerFromCSV () {
+
+    }
     private void buildSurveyEntity() {
         surveyEntity = new SurveyEntity();
         surveyEntity.setId(1);
@@ -98,7 +121,5 @@ public class SurveyServiceTest {
         questionEntity2.setOeAnswerEntityList(new ArrayList<>(Arrays.asList(oeAnswerEntity)));
 
         surveyEntity.setQuestionEntityList(new ArrayList<>(Arrays.asList(questionEntity1, questionEntity2)));
-
-
     }
 }

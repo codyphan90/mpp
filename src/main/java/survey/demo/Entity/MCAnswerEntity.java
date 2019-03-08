@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "mc_answer")
 public class MCAnswerEntity {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +42,10 @@ public class MCAnswerEntity {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getQuestionId() {

@@ -36,11 +36,13 @@ public class UserEntity {
 	public Integer getId() {
         return this.id;
     }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getUserName() {
+	public String getUserName() {
         return this.userName;
     }
-
 
     public void setUserName(String userName) {
         this.userName = userName;

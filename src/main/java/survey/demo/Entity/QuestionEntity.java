@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 @Table(name = "question")
 public class QuestionEntity {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +40,10 @@ public class QuestionEntity {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getSurveyId() {

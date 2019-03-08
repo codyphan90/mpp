@@ -124,7 +124,7 @@ public class SurveyService {
         List<MCAnswerEntity> answerEntityList = new ArrayList<>(
                 Arrays.asList(answerEntity1, answerEntity2, answerEntity3, answerEntity4));
         if(!StringUtils.isEmpty(csvRecord.get(6))) {
-        answerEntityList.get(Integer.parseInt(csvRecord.get(6))-1).setDefault(true);
+            answerEntityList.get(Integer.parseInt(csvRecord.get(6))-1).setDefault(true);
         }
         return answerEntityList;
     }
