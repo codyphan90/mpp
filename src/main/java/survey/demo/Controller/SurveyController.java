@@ -70,7 +70,7 @@ public class SurveyController {
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST,produces = { MediaType.ALL_VALUE })
-    public void uploadCSV(@RequestParam("file") MultipartFile file) throws IOException {
+    public void uploadCSV(@RequestParam("file0") MultipartFile file) throws IOException {
         surveyService.createSurveyFromCSV(file);
     }
 
