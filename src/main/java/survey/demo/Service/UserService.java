@@ -10,6 +10,7 @@ import survey.demo.Entity.UserEntity;
 import survey.demo.Repository.UserRepository;
 import survey.demo.Request.*;
 import survey.demo.Constant.*;
+import survey.demo.Response.LoginResponse;
 import survey.demo.utils.Common;
 
 @Service
@@ -41,16 +42,15 @@ public class UserService {
 		return null;
 	}
 	
-	public String login (LoginRequest loginRequest) {
+	public LoginResponse login (LoginRequest loginRequest) {
 		logger.info("Validate userName [{}] login", loginRequest.getUser().getUserName());
-		if (StringUtils.isEmpty(loginRequest.getUser().getUserName())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
-        if (StringUtils.isEmpty(loginRequest.getUser().getPassword())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
+		if (StringUtils.isEmpty(loginRequest.getUser().getUserName())) return new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK);
+        if (StringUtils.isEmpty(loginRequest.getUser().getPassword())) return new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK);
         UserEntity userEntity = usersRepository.findByUserNameEquals(loginRequest.getUser().getUserName());
-        if (userEntity == null) return MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID;
+        if (userEntity == null) return new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID);
         String loginPassword = Common.hash(loginRequest.getUser().getPassword());
-        if (!loginPassword.equals(userEntity.getPassword())) return MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID;
-		if ((loginRequest.getUser().getIsAdmin())&&(!loginRequest.getUser().getIsAdmin().equals(userEntity.getIsAdmin()))) return MessageConstant.NOT_ADMIN;
+        if (!loginPassword.equals(userEntity.getPassword())) return new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID);
 		logger.info("UserName [{}] login successfully", loginRequest.getUser().getUserName());
-		return null;
+		return new LoginResponse(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()),userEntity.getIsAdmin());
 	}
 }

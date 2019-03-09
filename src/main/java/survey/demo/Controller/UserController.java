@@ -7,6 +7,10 @@ import survey.demo.Request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -34,16 +38,11 @@ public class UserController {
 	
 
 	@RequestMapping(value ="login",method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public @ResponseBody LoginResponse login(@RequestBody LoginRequest loginRequest) {
 		try {
-			String exceptionMessage = userService.login(loginRequest);
-			if (exceptionMessage != null) {
-				return new ResponseEntity<>(false, exceptionMessage);
-			} else {
-			       return new ResponseEntity<>(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()));
-			}
+			return userService.login(loginRequest);
 		} catch (Exception e) {
-			return new ResponseEntity<> (false,e.getMessage());
+			return new LoginResponse(e.getMessage());
 		}
 	}	
 }

@@ -10,6 +10,7 @@ import survey.demo.Constant.MessageConstant;
 import survey.demo.Entity.UserEntity;
 import survey.demo.Request.LoginRequest;
 import survey.demo.Request.UserRequest;
+import survey.demo.Response.LoginResponse;
 import survey.demo.Response.ResponseEntity;
 import survey.demo.Service.UserService;
 
@@ -66,9 +67,9 @@ public class UserControllerTest {
 
     @Test
     public void login_whenFailed() {
-        when(userServiceMock.login(any())).thenReturn(MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID);
+        when(userServiceMock.login(any())).thenReturn(new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID));
 
-        ResponseEntity responseEntity = userController.login(loginRequest);
+        LoginResponse responseEntity = userController.login(loginRequest);
         assertEquals(false, responseEntity.getSuccess());
     }
 
@@ -76,7 +77,7 @@ public class UserControllerTest {
     public void login_whenSuccess() {
         when(userServiceMock.login(any())).thenReturn(null);
 
-        ResponseEntity responseEntity = userController.login(loginRequest);
+        LoginResponse responseEntity = userController.login(loginRequest);
         assertEquals(true, responseEntity.getSuccess());
     }
 }

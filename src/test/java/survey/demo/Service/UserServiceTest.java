@@ -11,6 +11,7 @@ import survey.demo.Entity.UserEntity;
 import survey.demo.Repository.SurveyRepository;
 import survey.demo.Repository.UserRepository;
 import survey.demo.Request.LoginRequest;
+import survey.demo.Response.LoginResponse;
 import survey.demo.utils.Common;
 
 import static org.junit.Assert.*;
@@ -84,15 +85,15 @@ public class UserServiceTest {
         tempEntity.setIsAdmin(userEntity.getIsAdmin());
         when(userRepositoryMock.findByUserNameEquals(any())).thenReturn(tempEntity);
 
-        String result = userService.login(loginRequest);
-        assertNull(result);
+        LoginResponse result = userService.login(loginRequest);
+        assertEquals(result.getSuccess(),true);
     }
 
     @Test
     public void login_whenFailed() {
         when(userRepositoryMock.findByUserNameEquals(any())).thenReturn(null);
 
-        String result = userService.login(loginRequest);
-        assertNotNull(result);
+        LoginResponse result = userService.login(loginRequest);
+        assertEquals(result.getSuccess(),false);
     }
 }
