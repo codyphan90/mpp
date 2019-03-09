@@ -37,6 +37,21 @@ public class SurveyController {
         }
     }
 
+    @RequestMapping(value = "update", method = RequestMethod.GET)
+    public ResponseEntity updateSurveyById(@PathVariable("id") Integer surveyId) {
+        logger.info("Get Survey Id [{}]", surveyId);
+        SurveyEntity surveyEntity = surveyService.getSurveyWithFullContent(surveyId);
+        if (surveyEntity == null) {
+            return new ResponseEntity("Can not find surveyId " + surveyId);
+        } else {
+            if (!surveyService.updateSurvey(surveyEntity)) {
+                return new ResponseEntity<>(false, "Update survey failed");
+            } else {
+                return new ResponseEntity<>("Update survey successfully");
+            }
+        }
+    }
+
     @RequestMapping(value ="list", method = RequestMethod.GET)
     public ResponseEntity getAllSurveyIDs() {
         logger.info("Get all Survey Ids");

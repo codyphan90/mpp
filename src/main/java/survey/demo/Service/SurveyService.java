@@ -67,6 +67,25 @@ public class SurveyService {
         return surveyEntity;
     }
 
+
+    @Transactional
+    public Boolean updateSurvey(SurveyEntity surveyEntity) {
+        SurveyEntity savedSurveyEntity = surveyRepository.findByIdEquals(surveyEntity.getId());
+        if (!surveyEntity.getName().equals(savedSurveyEntity.getName())) savedSurveyEntity.setName(surveyEntity.getName());
+        for (QuestionEntity questionEntity: surveyEntity.getQuestionEntityList()) {
+            for (QuestionEntity savedQuestionEntity: savedSurveyEntity.getQuestionEntityList()) {
+                if (questionEntity.getId()==savedQuestionEntity.getId()) {
+                    if (!questionEntity.getContent().equals(savedQuestionEntity.getContent())) {
+                        savedQuestionEntity.setContent(questionEntity.getContent());
+                    }
+
+                }
+            }
+        }
+        surveyRepository.save(savedSurveyEntity);
+        return true;
+    }
+
     @Transactional
     public Boolean submitSurvey(SurveyEntity surveyEntity) {
         surveyEntity.getQuestionEntityList().forEach(questionEntity -> {

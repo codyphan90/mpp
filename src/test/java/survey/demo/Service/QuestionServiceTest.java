@@ -7,9 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import survey.demo.Entity.*;
+import survey.demo.Repository.MCAnswerRepository;
+import survey.demo.Repository.OEAnswerRepository;
 import survey.demo.Repository.QuestionRepository;
-import survey.demo.Repository.SurveyRepository;
-import survey.demo.Request.LoginRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,13 +17,15 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class QuestionServiceTest {
 
     QuestionEntity mcQuestionEntity;
     QuestionEntity oeQuestionEntity;
+    MCAnswerEntity mcAnswerEntity;
+    OEAnswerEntity oeAnswerEntity;
 
     @InjectMocks
     private QuestionService questionService;
@@ -33,6 +35,12 @@ public class QuestionServiceTest {
 
     @Mock
     private AnswerService answerServiceMock;
+
+    @Mock
+    private MCAnswerRepository mcAnswerRepositoryMock;
+
+    @Mock
+    private OEAnswerRepository oeAnswerRepositoryMock;
 
     @Before
     public void setUp() {
@@ -57,21 +65,67 @@ public class QuestionServiceTest {
     }
 
     @Test
-    public void getQuestionAndAnswerListBySurveyId() {
+    public void getQuestionAndAnswerListBySurveyId_MCQuestion() {
+        List<QuestionEntity> list = new ArrayList<>(Arrays.asList(mcQuestionEntity));
+        when(questionRepositoryMock.findAllBySurveyIdEquals(any())).thenReturn(list);
+        when(mcAnswerRepositoryMock.findAllByQuestionIdEquals(any())).thenReturn(mcQuestionEntity.getMcAnswerEntityList());
+
+        List<QuestionEntity> result = questionService.getQuestionAndAnswerListBySurveyId(mcQuestionEntity.getId());
+        assertEquals(list.get(0).getId(), result.get(0).getId());
     }
 
     @Test
-    public void createQuestion() {
+    public void getQuestionAndAnswerListBySurveyId_OEQuestion() {
+        List<QuestionEntity> list = new ArrayList<>(Arrays.asList(oeQuestionEntity));
+        when(questionRepositoryMock.findAllBySurveyIdEquals(any())).thenReturn(list);
+        when(oeAnswerRepositoryMock.findAllByQuestionIdEquals(any())).thenReturn(oeQuestionEntity.getOeAnswerEntityList());
+
+        List<QuestionEntity> result = questionService.getQuestionAndAnswerListBySurveyId(oeQuestionEntity.getId());
+        assertEquals(list.get(0).getId(), result.get(0).getId());
+    }
+
+    @Test
+    public void createQuestion_MCQuestion() {
+        when(questionRepositoryMock.save(any())).thenReturn(mcQuestionEntity);
+        when(answerServiceMock.createMCAnswer(mcAnswerEntity)).thenReturn(mcAnswerEntity);
+
+        QuestionEntity result = questionService.createQuestion(mcQuestionEntity);
+        assertEquals(mcQuestionEntity.getId(), result.getId());
+    }
+
+    @Test
+    public void createQuestion_OEQuestion() {
+        when(questionRepositoryMock.save(any())).thenReturn(oeQuestionEntity);
+        when(answerServiceMock.createOEAnswer(oeAnswerEntity)).thenReturn(oeAnswerEntity);
+
+        QuestionEntity result = questionService.createQuestion(oeQuestionEntity);
+        assertEquals(oeQuestionEntity.getId(), result.getId());
     }
 
     @Test
     public void submitRating() {
+        when(questionRepositoryMock.findByIdEquals(any())).thenReturn(mcQuestionEntity);
+        when(questionRepositoryMock.save(any())).thenReturn(mcQuestionEntity);
+
+        questionService.submitRating(mcQuestionEntity);
+        verify(questionRepositoryMock,times(1)).save(any());
+    }
+
+    @Test
+    public void submitRating_nullRating() {
+        Double oldRating = mcQuestionEntity.getRating();
+        when(questionRepositoryMock.findByIdEquals(any())).thenReturn(mcQuestionEntity);
+        when(questionRepositoryMock.save(any())).thenReturn(mcQuestionEntity);
+        mcQuestionEntity.setRating(null);
+
+        questionService.submitRating(mcQuestionEntity);
+        verify(questionRepositoryMock,times(1)).save(any());
     }
 
     public void buildQuestionEntity() {
-        MCAnswerEntity mcAnswerEntity = new MCAnswerEntity();
+        mcAnswerEntity = new MCAnswerEntity();
         mcAnswerEntity.setSelected(true);
-        OEAnswerEntity oeAnswerEntity = new OEAnswerEntity();
+        oeAnswerEntity = new OEAnswerEntity();
 
         mcQuestionEntity = new QuestionEntity();
         mcQuestionEntity.setId(1);
