@@ -12,6 +12,7 @@ import survey.demo.Entity.MCAnswerEntity;
 import survey.demo.Entity.OEAnswerEntity;
 import survey.demo.Entity.QuestionEntity;
 import survey.demo.Entity.SurveyEntity;
+import survey.demo.Request.SurveyRequest;
 import survey.demo.Response.ResponseEntity;
 import survey.demo.Service.SurveyService;
 
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class SurveyControllerTest {
     private SurveyEntity surveyEntity;
+    private SurveyRequest surveyRequest;
     @InjectMocks
     SurveyController surveyController;
 
@@ -67,7 +69,19 @@ public class SurveyControllerTest {
     }
 
     @Test
-    public void createSurvey() {
+    public void createSurvey_whenFailed() {
+        when(surveyServiceMock.createSurvey(any())).thenReturn(null);
+
+        ResponseEntity responseEntity = surveyController.createSurvey(surveyRequest);
+        assertEquals(responseEntity.getSuccess(),false);
+    }
+
+    @Test
+    public void createSurvey_whenSuccess() {
+        when(surveyServiceMock.createSurvey(any())).thenReturn(surveyEntity);
+
+        ResponseEntity responseEntity = surveyController.createSurvey(surveyRequest);
+        assertEquals(responseEntity.getSuccess(),true);
     }
 
     @Test
@@ -97,5 +111,7 @@ public class SurveyControllerTest {
         questionEntity2.setOeAnswerEntityList(new ArrayList<>(Arrays.asList(oeAnswerEntity)));
 
         surveyEntity.setQuestionEntityList(new ArrayList<>(Arrays.asList(questionEntity1, questionEntity2)));
+        surveyRequest = new SurveyRequest();
+        surveyRequest.setSurveyEntity(surveyEntity);
     }
 }

@@ -70,10 +70,12 @@ public class SurveyController {
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody ResponseEntity createSurvey(@RequestBody SurveyRequest request) {
         SurveyEntity surveyEntity = surveyService.createSurvey(request.getSurveyEntity());
-        String successMessage = "Survey Id " + surveyEntity.getId() + " was created successfully";
-
-        return surveyEntity.getId() != null ? new ResponseEntity<>(true, null, successMessage)
-                : new ResponseEntity("Can not create survey");
+        if (surveyEntity!=null) {
+            String successMessage = "Survey Id " + surveyEntity.getId() + " was created successfully";
+            return new ResponseEntity<>(true, null, successMessage);
+        } else {
+            return new ResponseEntity("Can not create survey");
+        }
     }
 
     @RequestMapping(value = URL.ID, method = RequestMethod.PUT)
