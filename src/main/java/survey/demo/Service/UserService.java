@@ -37,6 +37,7 @@ public class UserService {
 		logger.info("Create new user with userName [{}]", userEntity.getUserName());
 		if (!StringUtils.isEmpty(userEntity.getUserName())){
 			userEntity.setPassword(Common.hash(userEntity.getPassword()));
+			if (!userEntity.getIsAdmin()) userEntity.setIsAdmin(false);
 			return usersRepository.save(userEntity);
 		}
 		return null;
