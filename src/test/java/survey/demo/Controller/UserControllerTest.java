@@ -66,18 +66,18 @@ public class UserControllerTest {
     }
 
     @Test
+    public void login_whenSuccess() {
+        when(userServiceMock.login(any())).thenReturn(new LoginResponse(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()),loginRequest.getUser().getIsAdmin()));
+
+        LoginResponse responseEntity = userController.login(loginRequest);
+        assertEquals(true, responseEntity.getSuccess());
+    }
+
+    @Test
     public void login_whenFailed() {
         when(userServiceMock.login(any())).thenReturn(new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID));
 
         LoginResponse responseEntity = userController.login(loginRequest);
         assertEquals(false, responseEntity.getSuccess());
-    }
-
-    @Test
-    public void login_whenSuccess() {
-        when(userServiceMock.login(any())).thenReturn(null);
-
-        LoginResponse responseEntity = userController.login(loginRequest);
-        assertEquals(true, responseEntity.getSuccess());
     }
 }
