@@ -74,7 +74,7 @@ public class SurveyService {
         if (!surveyEntity.getName().equals(savedSurveyEntity.getName())) savedSurveyEntity.setName(surveyEntity.getName());
         for (QuestionEntity questionEntity: surveyEntity.getQuestionEntityList()) {
             for (QuestionEntity savedQuestionEntity: savedSurveyEntity.getQuestionEntityList()) {
-                if (questionEntity.getId()==savedQuestionEntity.getId()) {
+                if (questionEntity.getId().equals(savedQuestionEntity.getId())) {
                     if (!questionEntity.getContent().equals(savedQuestionEntity.getContent())) {
                         savedQuestionEntity.setContent(questionEntity.getContent());
                     }
@@ -101,8 +101,8 @@ public class SurveyService {
             } else if (questionEntity.getType().toUpperCase().equals(QuestionType.OE.toString())) {
                 if (questionEntity.getOeAnswerEntityList()!= null) {
                     List<OEAnswerEntity> list = questionEntity.getOeAnswerEntityList();
-                    for(OEAnswerEntity ele:list) {
-                        answerService.createOEAnswer(ele);
+                    for(OEAnswerEntity oeEntity:list) {
+                        if (!StringUtils.isEmpty(oeEntity.getContent())) answerService.createOEAnswer(oeEntity);
                     }
                 }
             }
@@ -127,7 +127,7 @@ public class SurveyService {
     private QuestionEntity buildQuestionFromCSV(CSVRecord csvRecord) {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setContent(csvRecord.get(0));
-        questionEntity.setType(csvRecord.get(1).toString());
+        questionEntity.setType(csvRecord.get(1));
         if (questionEntity.getType().toUpperCase().equals(QuestionType.MC.toString())) {
             questionEntity.setMcAnswerEntityList(buildMCAnswerFromCSV(csvRecord));
         }
