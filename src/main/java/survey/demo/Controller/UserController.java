@@ -21,6 +21,7 @@ public class UserController {
 	@RequestMapping(value = URL.USER_BASE_URL,method = RequestMethod.POST)
     public @ResponseBody ResponseEntity createUser(@RequestBody UserRequest userRequest) {
 		try {
+			if (userRequest.getUser().getIsAdmin()==null) userRequest.getUser().setIsAdmin(false);
 			String exceptionMessage = userService.validateCreateUser(userRequest.getUser());
             if (exceptionMessage != null) {
                 return new ResponseEntity<>(false, exceptionMessage);
