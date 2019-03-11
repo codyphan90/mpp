@@ -112,7 +112,7 @@ public class SurveyService {
 
     public Boolean createSurveyFromCSV(MultipartFile file) throws IOException {
         CSVParser csvParser = CSVFormat.EXCEL.parse(new InputStreamReader(file.getInputStream()));
-        SurveyEntity surveyEntity = new SurveyEntity();
+        SurveyEntity surveyEntity = new SurveyEntity(file.getOriginalFilename().replaceAll(".csv", ""), true);
         surveyEntity.setQuestionEntityList(new ArrayList<>());
 
         for (CSVRecord csvRecord : csvParser) {
