@@ -1,16 +1,16 @@
-package demo.mpp.Service;
+package demo.mpp.Service.survey;
 
-import demo.mpp.Repository.MCAnswerRepository;
-import demo.mpp.Repository.OEAnswerRepository;
-import demo.mpp.Repository.QuestionRepository;
+import demo.mpp.Repository.survey.MCAnswerRepository;
+import demo.mpp.Repository.survey.OEAnswerRepository;
+import demo.mpp.Repository.survey.QuestionRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import demo.mpp.Constant.QuestionType;
-import demo.mpp.Entity.MCAnswerEntity;
-import demo.mpp.Entity.OEAnswerEntity;
-import demo.mpp.Entity.QuestionEntity;
+import demo.mpp.Entity.survey.MCAnswerEntity;
+import demo.mpp.Entity.survey.OEAnswerEntity;
+import demo.mpp.Entity.survey.QuestionEntity;
 
 import javax.transaction.Transactional;
 import java.util.List;

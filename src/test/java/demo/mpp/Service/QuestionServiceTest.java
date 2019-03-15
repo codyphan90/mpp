@@ -1,18 +1,20 @@
 package demo.mpp.Service;
 
-import demo.mpp.Entity.MCAnswerEntity;
-import demo.mpp.Entity.OEAnswerEntity;
-import demo.mpp.Entity.QuestionEntity;
-import demo.mpp.Repository.MCAnswerRepository;
-import demo.mpp.Repository.OEAnswerRepository;
-import demo.mpp.Repository.QuestionRepository;
+import demo.mpp.Entity.survey.MCAnswerEntity;
+import demo.mpp.Entity.survey.OEAnswerEntity;
+import demo.mpp.Entity.survey.QuestionEntity;
+import demo.mpp.Repository.survey.MCAnswerRepository;
+import demo.mpp.Repository.survey.OEAnswerRepository;
+import demo.mpp.Repository.survey.QuestionRepository;
+import demo.mpp.Service.survey.AnswerService;
+import demo.mpp.Service.survey.QuestionService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import survey.demo.Entity.*;
+import demo.mpp.Entity.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -37,7 +37,7 @@ public class UserServiceTest {
         userEntity.setId(1);
         userEntity.setUserName("Nam");
         userEntity.setPassword("1234");
-        userEntity.setIsAdmin(true);
+        userEntity.setAdmin(true);
 
         loginRequest = new LoginRequest();
         loginRequest.setUser(userEntity);
@@ -80,7 +80,7 @@ public class UserServiceTest {
         UserEntity tempEntity = new UserEntity();
         tempEntity.setUserName(userEntity.getUserName());
         tempEntity.setPassword(Common.hash(userEntity.getPassword()));
-        tempEntity.setIsAdmin(userEntity.getIsAdmin());
+        tempEntity.setAdmin(userEntity.getAdmin());
         when(userRepositoryMock.findByUserNameEquals(any())).thenReturn(tempEntity);
 
         LoginResponse result = userService.login(loginRequest);

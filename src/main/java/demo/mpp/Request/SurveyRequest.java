@@ -1,7 +1,7 @@
 package demo.mpp.Request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import demo.mpp.Entity.SurveyEntity;
+import demo.mpp.Entity.survey.SurveyEntity;
 
 public class SurveyRequest {
 

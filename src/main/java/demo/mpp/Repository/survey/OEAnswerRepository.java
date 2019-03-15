@@ -1,7 +1,7 @@
-package demo.mpp.Repository;
+package demo.mpp.Repository.survey;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import demo.mpp.Entity.OEAnswerEntity;
+import demo.mpp.Entity.survey.OEAnswerEntity;
 
 import java.util.List;
 

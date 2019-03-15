@@ -1,19 +1,16 @@
 package demo.mpp.Service;
 
 import demo.mpp.Constant.MessageConstant;
+import demo.mpp.Entity.UserEntity;
+import demo.mpp.Repository.UserRepository;
 import demo.mpp.Request.LoginRequest;
 import demo.mpp.Response.LoginResponse;
 import demo.mpp.utils.Common;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import demo.mpp.Entity.UserEntity;
-import demo.mpp.Repository.UserRepository;
-import survey.demo.Request.*;
-import survey.demo.Constant.*;
 
 @Service
 public class UserService {
@@ -53,6 +50,6 @@ public class UserService {
         String loginPassword = Common.hash(loginRequest.getUser().getPassword());
         if (!loginPassword.equals(userEntity.getPassword())) return new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID);
 		logger.info("UserName [{}] login successfully", loginRequest.getUser().getUserName());
-		return new LoginResponse(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()),userEntity.getIsAdmin());
+		return new LoginResponse(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()),userEntity.getAdmin());
 	}
 }

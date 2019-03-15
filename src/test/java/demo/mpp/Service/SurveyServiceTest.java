@@ -1,10 +1,13 @@
 package demo.mpp.Service;
 
-import demo.mpp.Entity.MCAnswerEntity;
-import demo.mpp.Entity.OEAnswerEntity;
-import demo.mpp.Entity.QuestionEntity;
-import demo.mpp.Entity.SurveyEntity;
-import demo.mpp.Repository.SurveyRepository;
+import demo.mpp.Entity.survey.MCAnswerEntity;
+import demo.mpp.Entity.survey.OEAnswerEntity;
+import demo.mpp.Entity.survey.QuestionEntity;
+import demo.mpp.Entity.survey.SurveyEntity;
+import demo.mpp.Repository.survey.SurveyRepository;
+import demo.mpp.Service.survey.AnswerService;
+import demo.mpp.Service.survey.QuestionService;
+import demo.mpp.Service.survey.SurveyService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package demo.mpp.Entity;
+package demo.mpp.Entity.survey;
 
 import javax.persistence.*;
 import java.util.List;

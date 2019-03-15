@@ -1,5 +1,9 @@
 package demo.mpp.Entity;
+import demo.mpp.Entity.social.FriendShipEntity;
+import demo.mpp.Entity.social.PostEntity;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -14,26 +18,37 @@ public class UserEntity {
 	
 	@Column(name = "password")
 	private String password;
-	
+
+	@Column(name = "full_name")
+    private String fullName;
+
 	@Column(name = "is_admin")
-	private Boolean isAdmin;
-	
+    private Boolean isAdmin;
+
+	@OneToMany(mappedBy = "userId")
+    private List<FriendShipEntity> friendShipEntityList;
+
+	@OneToMany(mappedBy = "userId")
+    private List<PostEntity> postEntityList;
+
 	public UserEntity() {
 	}
 	
-	public UserEntity(String userName, String password) {
+	public UserEntity(String userName, String password, String fullName) {
 		this.userName = userName;
 		this.password = password;
-		this.isAdmin = false;
-	}
-	
-	public UserEntity(String userName, String password, Boolean isAdmin) {
-		this.userName = userName;
-		this.password = password;
-		this.isAdmin = isAdmin;
+		this.fullName = fullName;
 	}
 
-	public Integer getId() {
+    public UserEntity(String userName, String password, String fullName, List<FriendShipEntity> friendShipEntityList, List<PostEntity> postEntityList) {
+        this.userName = userName;
+        this.password = password;
+        this.fullName = fullName;
+        this.friendShipEntityList = friendShipEntityList;
+        this.postEntityList = postEntityList;
+    }
+
+    public Integer getId() {
         return this.id;
     }
 	public void setId(Integer id) {
@@ -55,12 +70,36 @@ public class UserEntity {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public Boolean getIsAdmin () {
-    	return this.isAdmin;
+
+    public String getFullName() {
+        return fullName;
     }
-    
-    public void setIsAdmin (Boolean isAdmin) {
-    	this.isAdmin=isAdmin;
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public List<FriendShipEntity> getFriendShipEntityList() {
+        return friendShipEntityList;
+    }
+
+    public void setFriendShipEntityList(List<FriendShipEntity> friendShipEntityList) {
+        this.friendShipEntityList = friendShipEntityList;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public List<PostEntity> getPostEntityList() {
+        return postEntityList;
+    }
+
+    public void setPostEntityList(List<PostEntity> postEntityList) {
+        this.postEntityList = postEntityList;
     }
 }

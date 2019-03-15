@@ -1,4 +1,4 @@
-package demo.mpp.Service;
+package demo.mpp.Service.survey;
 
 import demo.mpp.Constant.QuestionType;
 import org.apache.commons.csv.CSVFormat;
@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import demo.mpp.Entity.MCAnswerEntity;
-import demo.mpp.Entity.OEAnswerEntity;
-import demo.mpp.Entity.QuestionEntity;
-import demo.mpp.Entity.SurveyEntity;
-import demo.mpp.Repository.SurveyRepository;
-import survey.demo.Constant.*;
+import demo.mpp.Entity.survey.MCAnswerEntity;
+import demo.mpp.Entity.survey.OEAnswerEntity;
+import demo.mpp.Entity.survey.QuestionEntity;
+import demo.mpp.Entity.survey.SurveyEntity;
+import demo.mpp.Repository.survey.SurveyRepository;
+import demo.mpp.Constant.*;
 
 import javax.transaction.Transactional;
 import java.io.IOException;

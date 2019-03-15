@@ -1,7 +1,7 @@
 package demo.mpp.Controller;
 
 import demo.mpp.Response.Survey;
-import demo.mpp.Service.SurveyService;
+import demo.mpp.Service.survey.SurveyService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import demo.mpp.Constant.URL;
-import demo.mpp.Entity.SurveyEntity;
+import demo.mpp.Entity.survey.SurveyEntity;
 import demo.mpp.Request.SurveyRequest;
 import demo.mpp.Response.ResponseEntity;
 
