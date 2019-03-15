@@ -1,10 +1,9 @@
-package demo.mpp.Service.social;
+package demo.mpp.Service;
 
-import demo.mpp.Entity.social.EmotionEntity;
-import demo.mpp.Entity.social.PostEntity;
-import demo.mpp.Repository.social.CommentRepository;
-import demo.mpp.Repository.social.EmotionRepository;
-import demo.mpp.Repository.social.PostRepository;
+import demo.mpp.Entity.PostEntity;
+import demo.mpp.Repository.CommentRepository;
+import demo.mpp.Repository.EmotionRepository;
+import demo.mpp.Repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

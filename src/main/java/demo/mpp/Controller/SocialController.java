@@ -1,8 +1,8 @@
 package demo.mpp.Controller;
 
-import demo.mpp.Entity.social.PostEntity;
+import demo.mpp.Entity.PostEntity;
 import demo.mpp.Response.ResponseEntity;
-import demo.mpp.Service.social.PostService;
+import demo.mpp.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

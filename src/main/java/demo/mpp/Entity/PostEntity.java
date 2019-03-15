@@ -1,4 +1,4 @@
-package demo.mpp.Entity.social;
+package demo.mpp.Entity;
 
 import javax.persistence.*;
 import java.util.Date;

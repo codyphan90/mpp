@@ -1,6 +1,4 @@
 package demo.mpp.Entity;
-import demo.mpp.Entity.social.FriendShipEntity;
-import demo.mpp.Entity.social.PostEntity;
 
 import javax.persistence.*;
 import java.util.List;

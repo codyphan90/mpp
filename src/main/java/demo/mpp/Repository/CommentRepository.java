@@ -1,7 +1,6 @@
-package demo.mpp.Repository.social;
+package demo.mpp.Repository;
 
-import demo.mpp.Entity.social.CommentEntity;
-import demo.mpp.Entity.social.PostEntity;
+import demo.mpp.Entity.CommentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
