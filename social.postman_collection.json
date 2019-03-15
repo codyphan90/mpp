@@ -1,0 +1,22 @@
+{
+	"info": {
+		"_postman_id": "297e4b5f-56eb-4015-ba52-636eab05c6d2",
+		"name": "social",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://127.0.0.1:8080/survey/3"
+			},
+			"response": []
+		}
+	]
+}
