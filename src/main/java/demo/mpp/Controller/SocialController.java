@@ -15,7 +15,7 @@ public class SocialController {
     @Autowired
     private PostService postService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value= "/{user_id}",method = RequestMethod.GET)
     public @ResponseBody ResponseEntity getPostsByUserId(@PathVariable("user_id") Integer userId) {
         List<PostEntity> postEntityList = postService.getPostListWithFullDetail(userId);
         if (postEntityList == null) {

@@ -3,8 +3,8 @@ package demo.mpp.Entity.social;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "like")
-public class LikeEntity {
+@Table(name = "emotion")
+public class EmotionEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +16,13 @@ public class LikeEntity {
     @Column(name = "user_id")
     private Integer userId;
 
-    public LikeEntity() {
+    @Column(name = "type")
+    private String type;
+
+    public EmotionEntity() {
     }
 
-    public LikeEntity(Integer postId, Integer userId) {
+    public EmotionEntity(Integer postId, Integer userId) {
         this.postId = postId;
         this.userId = userId;
     }
@@ -46,5 +49,13 @@ public class LikeEntity {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
