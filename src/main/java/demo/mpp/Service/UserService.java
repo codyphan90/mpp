@@ -6,6 +6,7 @@ import demo.mpp.Repository.UserRepository;
 import demo.mpp.Request.LoginRequest;
 import demo.mpp.Response.LoginResponse;
 import demo.mpp.utils.Common;
+import demo.mpp.utils.UserFunctions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserService {
     protected UserRepository usersRepository;
 	@Autowired
     protected Common commonService;
-	
+
 	public String validateCreateUser(UserEntity userEntity) {
 		logger.info("validate new userName [{}]", userEntity.getUserName());
 
@@ -28,8 +29,7 @@ public class UserService {
         if (userEntity.getPassword() == null) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
         Integer entityCheckDuplicate = usersRepository.countByUserName(userEntity.getUserName());
 
-        if (entityCheckDuplicate > 0) return String.format(MessageConstant.DUPLICATE_EXCEPTION_MESSAGE, "User " + userEntity.getUserName());
-        return null;
+        return UserFunctions.validateUser.apply(entityCheckDuplicate,userEntity).toString();
 	}
 	
 	public UserEntity createUser(UserEntity userEntity) {
@@ -50,6 +50,6 @@ public class UserService {
         String loginPassword = Common.hash(loginRequest.getUser().getPassword());
         if (!loginPassword.equals(userEntity.getPassword())) return new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID);
 		logger.info("UserName [{}] login successfully", loginRequest.getUser().getUserName());
-		return new LoginResponse(true, MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()));
+		return new LoginResponse(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()));
 	}
 }

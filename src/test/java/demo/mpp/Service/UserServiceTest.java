@@ -12,6 +12,8 @@ import demo.mpp.Entity.UserEntity;
 import demo.mpp.Repository.UserRepository;
 import demo.mpp.Request.LoginRequest;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -46,7 +48,7 @@ public class UserServiceTest {
     public void validateCreateUser_whenSuccess() {
         when(userRepositoryMock.countByUserName(any())).thenReturn(0);
         String result = userService.validateCreateUser(userEntity);
-        assertNull(result);
+        assertEquals(result, Optional.empty().toString());
     }
 
     @Test
