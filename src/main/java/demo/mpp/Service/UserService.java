@@ -50,6 +50,6 @@ public class UserService {
         String loginPassword = Common.hash(loginRequest.getUser().getPassword());
         if (!loginPassword.equals(userEntity.getPassword())) return new LoginResponse(MessageConstant.USER_NAME_OR_PASSWORD_IS_INVALID);
 		logger.info("UserName [{}] login successfully", loginRequest.getUser().getUserName());
-		return new LoginResponse(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()),userEntity.getAdmin());
+		return new LoginResponse(true, MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()));
 	}
 }

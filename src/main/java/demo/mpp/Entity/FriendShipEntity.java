@@ -1,8 +1,6 @@
 package demo.mpp.Entity;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "friend_ship")
@@ -15,15 +13,15 @@ public class FriendShipEntity {
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "flow_user_id")
-    private Integer flowUserId;
+    @Column(name = "flow_user_name")
+    private String flowUserName;
 
     public FriendShipEntity() {
     }
 
-    public FriendShipEntity(Integer userId, Integer flowUserId) {
+    public FriendShipEntity(Integer userId, String flowUserName) {
         this.userId = userId;
-        this.flowUserId = flowUserId;
+        this.flowUserName = flowUserName;
     }
 
     public Integer getId() {
@@ -42,11 +40,11 @@ public class FriendShipEntity {
         this.userId = userId;
     }
 
-    public Integer getFlowUserId() {
-        return flowUserId;
+    public String getFlowUserName() {
+        return flowUserName;
     }
 
-    public void setFlowUserId(Integer flowUserId) {
-        this.flowUserId = flowUserId;
+    public void setFlowUserName(String flowUserName) {
+        this.flowUserName = flowUserName;
     }
 }

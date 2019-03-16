@@ -13,8 +13,8 @@ public class EmotionEntity {
     @Column(name = "post_id")
     private Integer postId;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "user_name")
+    private String userName;
 
     @Column(name = "type")
     private String type;
@@ -22,9 +22,9 @@ public class EmotionEntity {
     public EmotionEntity() {
     }
 
-    public EmotionEntity(Integer postId, Integer userId) {
+    public EmotionEntity(Integer postId, String userId) {
         this.postId = postId;
-        this.userId = userId;
+        this.userName = userId;
     }
 
     public Integer getId() {
@@ -43,12 +43,12 @@ public class EmotionEntity {
         this.postId = postId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getType() {

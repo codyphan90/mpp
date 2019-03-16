@@ -17,8 +17,8 @@ public class CommentEntity {
     @Column(name = "post_id")
     private Integer postId;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "user_name")
+    private String userName;
 
     @Column(name = "created_date")
     private Date createdDate;
@@ -26,10 +26,10 @@ public class CommentEntity {
     public CommentEntity() {
     }
 
-    public CommentEntity(String content, Integer postId, Integer userId, Date createdDate) {
+    public CommentEntity(String content, Integer postId, String userName, Date createdDate) {
         this.content = content;
         this.postId = postId;
-        this.userId = userId;
+        this.userName = userName;
         this.createdDate = createdDate;
     }
 
@@ -57,12 +57,12 @@ public class CommentEntity {
         this.postId = postId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Date getCreatedDate() {

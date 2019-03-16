@@ -15,11 +15,11 @@ public class SocialController {
     @Autowired
     private PostService postService;
 
-    @RequestMapping(value= "/{user_id}",method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity getPostsByUserId(@PathVariable("user_id") Integer userId) {
-        List<PostEntity> postEntityList = postService.getPostListWithFullDetail(userId);
+    @RequestMapping(value= "/post/{user_name}",method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity getPostsByUserId(@PathVariable("user_name") String useName) {
+        List<PostEntity> postEntityList = postService.getPostListWithFullDetail(useName);
         if (postEntityList == null) {
-            return new ResponseEntity("Can not find any post of user " + userId);
+            return new ResponseEntity("Can not find any post of user " + useName);
         } else {
             return new ResponseEntity<>(postEntityList);
         }

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<PostEntity, Integer> {
     PostEntity findByPostIdEquals(Integer postId);
-    List<PostEntity> findAllByUserIdEquals(Integer userId);
+    List<PostEntity> findAllByUserNameEquals(String userName);
 }

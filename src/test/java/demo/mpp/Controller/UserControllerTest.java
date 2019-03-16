@@ -38,7 +38,6 @@ public class UserControllerTest {
         userEntity.setId(1);
         userEntity.setUserName("Nam");
         userEntity.setPassword("1234");
-        userEntity.setAdmin(true);
 
         userRequest = new UserRequest();
         userRequest.setUser(userEntity);
@@ -67,7 +66,7 @@ public class UserControllerTest {
 
     @Test
     public void login_whenSuccess() {
-        when(userServiceMock.login(any())).thenReturn(new LoginResponse(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName()),loginRequest.getUser().getAdmin()));
+        when(userServiceMock.login(any())).thenReturn(new LoginResponse(true,MessageConstant.LOGIN_SUCCESS.replaceAll("@@user@@", loginRequest.getUser().getUserName())));
 
         LoginResponse responseEntity = userController.login(loginRequest);
         assertEquals(true, responseEntity.getSuccess());

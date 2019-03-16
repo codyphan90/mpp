@@ -590,7 +590,7 @@
 														"$ref": "AAAAAAFpf2yIoMoELfY="
 													},
 													"edgePosition": 1,
-													"text": "2 : get all data by userId"
+													"text": "2 : get all data by userName"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -1042,7 +1042,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFpf2o/7sk1dcc="
 									},
-									"name": "get all data by userId",
+									"name": "get all data by userName",
 									"source": {
 										"$ref": "AAAAAAFpf2pRYslEyhA="
 									},

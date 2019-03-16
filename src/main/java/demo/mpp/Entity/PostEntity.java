@@ -18,16 +18,30 @@ public class PostEntity {
     @Column(name = "created_date")
     private Date createdDate;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "user_name")
+    private String userName;
+
+    @OneToMany(mappedBy = "postId")
+    private List<CommentEntity> commentEntityList;
+
+    @OneToMany(mappedBy = "postId")
+    private List<EmotionEntity> emotionEntityList;
 
     public PostEntity() {
     }
 
-    public PostEntity(String content, Date createdDate, Integer userId) {
+    public PostEntity(String content, Date createdDate, String userName) {
         this.content = content;
         this.createdDate = createdDate;
-        this.userId = userId;
+        this.userName = userName;
+    }
+
+    public PostEntity(String content, Date createdDate, String userName, List<CommentEntity> commentEntityList, List<EmotionEntity> emotionEntityList) {
+        this.content = content;
+        this.createdDate = createdDate;
+        this.userName = userName;
+        this.commentEntityList = commentEntityList;
+        this.emotionEntityList = emotionEntityList;
     }
 
     public Integer getPostId() {
@@ -54,11 +68,27 @@ public class PostEntity {
         this.createdDate = createdDate;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public List<CommentEntity> getCommentEntityList() {
+        return commentEntityList;
+    }
+
+    public void setCommentEntityList(List<CommentEntity> commentEntityList) {
+        this.commentEntityList = commentEntityList;
+    }
+
+    public List<EmotionEntity> getEmotionEntityList() {
+        return emotionEntityList;
+    }
+
+    public void setEmotionEntityList(List<EmotionEntity> emotionEntityList) {
+        this.emotionEntityList = emotionEntityList;
     }
 }

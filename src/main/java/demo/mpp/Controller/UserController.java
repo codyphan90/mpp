@@ -22,7 +22,6 @@ public class UserController {
     public @ResponseBody
     ResponseEntity createUser(@RequestBody UserRequest userRequest) {
 		try {
-			if (userRequest.getUser().getAdmin()==null) userRequest.getUser().setAdmin(false);
 			String exceptionMessage = userService.validateCreateUser(userRequest.getUser());
             if (exceptionMessage != null) {
                 return new ResponseEntity<>(false, exceptionMessage);

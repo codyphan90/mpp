@@ -20,8 +20,8 @@ public class PostService {
     @Autowired
     private EmotionRepository emotionRepository;
 
-    public List<PostEntity> getPostListWithFullDetail(Integer userId) {
-        List<PostEntity> postEntityList = postRepository.findAllByUserIdEquals(userId);
+    public List<PostEntity> getPostListWithFullDetail(String userName) {
+        List<PostEntity> postEntityList = postRepository.findAllByUserNameEquals(userName);
         postEntityList.forEach(postEntity -> {
             // get comment
             postEntity.setCommentEntityList(commentRepository.findAllByPostIdEquals(postEntity.getPostId()));
