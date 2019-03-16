@@ -21,12 +21,6 @@ public class PostEntity {
     @Column(name = "user_id")
     private Integer userId;
 
-    @OneToMany(mappedBy = "postId")
-    private List<CommentEntity> commentEntityList;
-
-    @OneToMany(mappedBy = "postId")
-    private List<EmotionEntity> emotionEntityList;
-
     public PostEntity() {
     }
 
@@ -34,14 +28,6 @@ public class PostEntity {
         this.content = content;
         this.createdDate = createdDate;
         this.userId = userId;
-    }
-
-    public PostEntity(String content, Date createdDate, Integer userId, List<CommentEntity> commentEntityList, List<EmotionEntity> emotionEntityList) {
-        this.content = content;
-        this.createdDate = createdDate;
-        this.userId = userId;
-        this.commentEntityList = commentEntityList;
-        this.emotionEntityList = emotionEntityList;
     }
 
     public Integer getPostId() {
@@ -74,21 +60,5 @@ public class PostEntity {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public List<CommentEntity> getCommentEntityList() {
-        return commentEntityList;
-    }
-
-    public void setCommentEntityList(List<CommentEntity> commentEntityList) {
-        this.commentEntityList = commentEntityList;
-    }
-
-    public List<EmotionEntity> getEmotionEntityList() {
-        return emotionEntityList;
-    }
-
-    public void setEmotionEntityList(List<EmotionEntity> emotionEntityList) {
-        this.emotionEntityList = emotionEntityList;
     }
 }
