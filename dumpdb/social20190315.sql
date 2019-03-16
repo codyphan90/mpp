@@ -82,8 +82,10 @@ DROP TABLE IF EXISTS `friend_ship`;
 CREATE TABLE `friend_ship` (
   `id` int(11) NOT NULL,
   `user_name` varchar(50) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
   `relate_user_name` varchar(50) DEFAULT NULL,
+  `following` tinyint(1) DEFAULT NULL,
+  `friend` tinyint(1) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -94,7 +96,7 @@ CREATE TABLE `friend_ship` (
 
 LOCK TABLES `friend_ship` WRITE;
 /*!40000 ALTER TABLE `friend_ship` DISABLE KEYS */;
-INSERT INTO `friend_ship` VALUES (1,'admin','following','vietanh'),(2,'admin','friend','bang'),(3,'admin','pending','sang'),(4,'bang','friend','admin');
+INSERT INTO `friend_ship` VALUES (1,'admin','vietanh',1,1,'sucess'),(2,'admin','bang',1,0,NULL),(3,'admin','sang',1,0,'pending'),(4,'admin','huy',0,1,'success');
 /*!40000 ALTER TABLE `friend_ship` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-15 23:13:44
+-- Dump completed on 2019-03-15 23:46:41
