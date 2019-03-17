@@ -60,6 +60,111 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "create Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"this post of tam\",\n    \"userName\": \"tam\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/social/post/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"social",
+						"post",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"postId\": 6,\n    \"content\": \"this comment to Post of Tam\",\n    \"userName\": \"vietanh\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/social/comment/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"social",
+						"comment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Reaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"postId\": 6,\n    \"type\": \"like\",\n    \"userName\": \"vietanh\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/social/reaction/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"social",
+						"reaction",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
