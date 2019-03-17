@@ -18,7 +18,7 @@ public class SocialController {
     private PostService postService;
 
     @RequestMapping(value= "/post/{user_name}", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity getPostsByUserId(@PathVariable("user_name") String useName) {
+    public @ResponseBody ResponseEntity getPostsByUserName(@PathVariable("user_name") String useName) {
         List<PostEntity> postEntityList = postService.getPostListWithFullDetail(useName);
         if (postEntityList == null) {
             return new ResponseEntity("Can not find any post of user " + useName);
