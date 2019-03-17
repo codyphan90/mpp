@@ -10,18 +10,39 @@ public class FriendShipEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "user_name")
+    private String userName;
 
-    @Column(name = "flow_user_name")
-    private String flowUserName;
+    @Column(name = "relate_user_name")
+    private String relateUserName;
+
+    @Column(name="friend")
+    private Boolean friend;
+
+    @Column(name="following")
+    private Boolean following;
+
+    @Column(name="status")
+    private String status;
 
     public FriendShipEntity() {
     }
 
-    public FriendShipEntity(Integer userId, String flowUserName) {
-        this.userId = userId;
-        this.flowUserName = flowUserName;
+    public FriendShipEntity(String userName, String relateUserName) {
+        this.userName = userName;
+        this.relateUserName = relateUserName;
+        this.friend=false;
+        this.following=false;
+        this.status=null;
+    }
+
+
+    public FriendShipEntity(String userName, String relateUserName, Boolean friend, Boolean following, String status) {
+        this.userName = userName;
+        this.relateUserName = relateUserName;
+        this.friend = friend;
+        this.following=following;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -32,19 +53,43 @@ public class FriendShipEntity {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getFlowUserName() {
-        return flowUserName;
+    public String getRelateUserName() {
+        return relateUserName;
     }
 
-    public void setFlowUserName(String flowUserName) {
-        this.flowUserName = flowUserName;
+    public void setRelateUserName(String relateUserName) {
+        this.relateUserName = relateUserName;
+    }
+
+    public Boolean getFriend() {
+        return friend;
+    }
+
+    public void setFriend(Boolean friend) {
+        this.friend = friend;
+    }
+
+    public Boolean getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Boolean following) {
+        this.following = following;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

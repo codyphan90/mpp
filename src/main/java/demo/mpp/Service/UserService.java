@@ -6,12 +6,15 @@ import demo.mpp.Repository.UserRepository;
 import demo.mpp.Request.LoginRequest;
 import demo.mpp.Response.LoginResponse;
 import demo.mpp.utils.Common;
-import demo.mpp.utils.UserFunctions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.BiFunction;
 
 @Service
 public class UserService {
@@ -22,6 +25,8 @@ public class UserService {
 	@Autowired
     protected Common commonService;
 
+	private BiFunction<Integer, UserEntity, Optional<String>> validateUser = (numUser, user)-> numUser != 0 ? Optional.of(String.format(MessageConstant.DUPLICATE_EXCEPTION_MESSAGE, "User " + user.getUserName())) :Optional.empty();
+
 	public String validateCreateUser(UserEntity userEntity) {
 		logger.info("validate new userName [{}]", userEntity.getUserName());
 
@@ -29,7 +34,11 @@ public class UserService {
         if (userEntity.getPassword() == null) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
         Integer entityCheckDuplicate = usersRepository.countByUserName(userEntity.getUserName());
 
-        return UserFunctions.validateUser.apply(entityCheckDuplicate,userEntity).toString();
+        return validateUser.apply(entityCheckDuplicate,userEntity).toString();
+	}
+
+	public List<UserEntity> getFullUserList() {
+		return usersRepository.findAll();
 	}
 	
 	public UserEntity createUser(UserEntity userEntity) {
