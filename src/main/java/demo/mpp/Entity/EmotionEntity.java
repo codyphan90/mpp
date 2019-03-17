@@ -1,6 +1,7 @@
 package demo.mpp.Entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "emotion")

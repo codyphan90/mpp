@@ -23,6 +23,11 @@ public class CommentEntity {
     @Column(name = "created_date")
     private Date createdDate;
 
+    @PrePersist
+    public void preInsert() {
+        this.createdDate = new Date();
+    }
+
     public CommentEntity() {
     }
 

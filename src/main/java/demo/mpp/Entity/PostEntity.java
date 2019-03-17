@@ -27,6 +27,11 @@ public class PostEntity {
     @OneToMany(mappedBy = "postId")
     private List<EmotionEntity> emotionEntityList;
 
+    @PrePersist
+    public void preInsert() {
+        this.createdDate = new Date();
+    }
+
     public PostEntity() {
     }
 

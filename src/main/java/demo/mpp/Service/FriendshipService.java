@@ -5,9 +5,11 @@ import demo.mpp.Entity.UserEntity;
 import demo.mpp.Repository.FriendShipRepository;
 import demo.mpp.utils.FriendshipFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FriendshipService {
     @Autowired
     protected FriendShipRepository friendshipRepository;
