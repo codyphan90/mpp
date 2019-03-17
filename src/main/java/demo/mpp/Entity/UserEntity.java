@@ -26,6 +26,13 @@ public class UserEntity {
 
 	public UserEntity() {
 	}
+
+    public UserEntity(String userName, String password, String fullName) {
+        this.userName = userName;
+        this.password = password;
+        this.fullName = fullName;
+        this.dateOfBirth= null;
+    }
 	
 	public UserEntity(String userName, String password, String fullName, Date dateOfBirth) {
 		this.userName = userName;

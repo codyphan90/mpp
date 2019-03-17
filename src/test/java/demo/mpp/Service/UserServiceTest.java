@@ -48,7 +48,7 @@ public class UserServiceTest {
     public void validateCreateUser_whenSuccess() {
         when(userRepositoryMock.countByUserName(any())).thenReturn(0);
         String result = userService.validateCreateUser(userEntity);
-        assertEquals(result, Optional.empty().toString());
+        assertNull(result);
     }
 
     @Test
