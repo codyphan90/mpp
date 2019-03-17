@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.BiFunction;
 
 @Service
 public class UserService {
@@ -25,8 +23,6 @@ public class UserService {
 	@Autowired
     protected Common commonService;
 
-	private BiFunction<Integer, UserEntity, Optional<String>> validateUser = (numUser, user)-> numUser != 0 ? Optional.of(String.format(MessageConstant.DUPLICATE_EXCEPTION_MESSAGE, "User " + user.getUserName())) :Optional.empty();
-
 	public String validateCreateUser(UserEntity userEntity) {
 		logger.info("validate new userName [{}]", userEntity.getUserName());
 
@@ -34,7 +30,8 @@ public class UserService {
         if (userEntity.getPassword() == null) return MessageConstant.USER_NAME_OR_PASSWORD_IS_BLANK;
         Integer entityCheckDuplicate = usersRepository.countByUserName(userEntity.getUserName());
 
-        return validateUser.apply(entityCheckDuplicate,userEntity).toString();
+		if (entityCheckDuplicate > 0) return String.format(MessageConstant.DUPLICATE_EXCEPTION_MESSAGE, "User " + userEntity.getUserName());
+		return null;
 	}
 
 	public List<UserEntity> getFullUserList() {
