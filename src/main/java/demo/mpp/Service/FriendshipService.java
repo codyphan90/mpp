@@ -15,7 +15,10 @@ public class FriendshipService {
     protected FriendShipRepository friendshipRepository;
 
     public List<String> getListUsersNeedFriendship (List<UserEntity> userList, List<FriendShipEntity> friendshipList, String targetUserName) {
-        return FriendshipFunctions.convertUserEntity2UserName.apply(FriendshipFunctions.collectNotFriendShip.apply(userList,FriendshipFunctions.collectUserFriendship.apply(friendshipList,targetUserName)));
+         return FriendshipFunctions.convertUserEntity2UserName
+                .apply(FriendshipFunctions.collectNotFriendShip
+                       .apply(userList,FriendshipFunctions.collectUserFriendship
+                               .apply(friendshipList,targetUserName)));
     }
 
     public List<FriendShipEntity> getListFriends(List<FriendShipEntity> friendshipList, String targetUserName) {
@@ -24,5 +27,20 @@ public class FriendshipService {
 
     public List<FriendShipEntity> getFullFriendshipList() {
         return friendshipRepository.findAll();
+    }
+
+    public String sendFriendshipRequest(FriendShipEntity friendshipEntity) {
+        //Integer entityCheckDuplicate = friendshipRepository.
+
+        //if (entityCheckDuplicate > 0)
+        friendshipRepository.save(friendshipEntity);
+        return null;
+    }
+
+    public String acceptFriendRequest(FriendShipEntity friendshipEntity) {
+        //FriendShipEntity friendship = friendshipRepository.findAllByUserNameEquals(friendshipEntity.getUserName())
+          //      .stream().collect(Collectors.toList());
+
+        return null;
     }
 }

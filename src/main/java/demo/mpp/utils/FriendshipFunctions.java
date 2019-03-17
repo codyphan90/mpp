@@ -12,7 +12,7 @@ public class FriendshipFunctions {
 
     //Convert from list of user entity to list of user name
     public static Function<List<UserEntity>,List<String>> convertUserEntity2UserName = (userList) ->userList.stream()
-            .map(user->user.getFullName())
+            .map(user->user.getUserName())
             .collect(Collectors.toList());
 
     // Collect list of users who does not have friendship
@@ -26,6 +26,6 @@ public class FriendshipFunctions {
     // From list of Friendship from db, filter friends/followings of 1 user
     public static BiFunction<List<FriendShipEntity>, String, List<FriendShipEntity>> collectUserFriendship = (userFrsList,targetUserName) -> userFrsList
             .stream()
-            .filter(frs -> frs.getUserName()==targetUserName)
+            .filter(frs -> frs.getUserName().equals(targetUserName))
             .collect(Collectors.toList());
 }
