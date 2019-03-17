@@ -40,6 +40,10 @@ public class UserService {
 	public List<UserEntity> getFullUserList() {
 		return usersRepository.findAll();
 	}
+
+	public UserEntity getUserProfile(String userName) {
+		return usersRepository.findByUserNameEquals(userName);
+	}
 	
 	public UserEntity createUser(UserEntity userEntity) {
 		logger.info("Create new user with userName [{}]", userEntity.getUserName());

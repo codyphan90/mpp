@@ -47,5 +47,10 @@ public class UserController {
 		} catch (Exception e) {
 			return new LoginResponse(e.getMessage());
 		}
-	}	
+	}
+
+	@RequestMapping(value ="/profile/{user_name}",method = RequestMethod.GET)
+	public @ResponseBody UserEntity getProfile(@PathVariable("user_name") String useName) {
+		return userService.getUserProfile(useName);
+	}
 }

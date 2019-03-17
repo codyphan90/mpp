@@ -1,6 +1,7 @@
 package demo.mpp.Entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,13 +21,17 @@ public class UserEntity {
 	@Column(name = "full_name")
     private String fullName;
 
+    @Column(name = "dob")
+    private Date dateOfBirth;
+
 	public UserEntity() {
 	}
 	
-	public UserEntity(String userName, String password, String fullName) {
+	public UserEntity(String userName, String password, String fullName, Date dateOfBirth) {
 		this.userName = userName;
 		this.password = password;
 		this.fullName = fullName;
+		this.dateOfBirth= dateOfBirth;
 	}
 
     public Integer getId() {
@@ -58,5 +63,13 @@ public class UserEntity {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
