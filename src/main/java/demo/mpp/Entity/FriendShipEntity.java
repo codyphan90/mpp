@@ -25,6 +25,13 @@ public class FriendShipEntity {
     @Column(name="status")
     private String status;
 
+    @PrePersist
+    public void preInsert() {
+        if (this.friend == null) this.friend = false;
+        if (this.getFollowing() == null) this.following = false;
+        if (this.status == null) this.status = "none";
+    }
+
     public FriendShipEntity() {
     }
 

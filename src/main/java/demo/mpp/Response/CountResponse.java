@@ -36,4 +36,8 @@ public class CountResponse {
     public void setFollowerCount(Integer followerCount) {
         this.followerCount = followerCount;
     }
+
+    public Integer getPendingCount() {
+        return pendingCount;
+    }
 }
