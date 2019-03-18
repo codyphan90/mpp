@@ -72,7 +72,7 @@ public class FriendshipServiceTest {
         when(friendShipRepositoryMock.findByUserNameEqualsAndAndRelateUserNameEquals(any(), any())).thenReturn(friendShipEntity);
         when(friendShipRepositoryMock.save(any())).thenReturn(friendShipEntity);
 
-        FriendShipEntity result = friendshipService.makeFriendShip(makeFriendRequest);
+        FriendShipEntity result = friendshipService.changeFriendShip(makeFriendRequest);
         assertEquals(false, result.getFriend());
         assertEquals("pending", result.getStatus());
     }
@@ -82,7 +82,7 @@ public class FriendshipServiceTest {
         when(friendShipRepositoryMock.findByUserNameEqualsAndAndRelateUserNameEquals(any(), any())).thenReturn(null);
         when(friendShipRepositoryMock.save(any())).thenReturn(friendShipEntity);
 
-        FriendShipEntity result = friendshipService.makeFriendShip(makeFriendRequest);
+        FriendShipEntity result = friendshipService.changeFriendShip(makeFriendRequest);
         assertEquals(false, result.getFriend());
         assertEquals("pending", result.getStatus());
 

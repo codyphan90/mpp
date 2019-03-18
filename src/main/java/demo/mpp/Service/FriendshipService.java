@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FriendshipService {
@@ -38,13 +39,13 @@ public class FriendshipService {
         return friendshipRepository.findAll();
     }
 
-    public FriendShipEntity makeFriendShip(FriendShipEntity friendshipRequest) {
+    public FriendShipEntity changeFriendShip(FriendShipEntity friendshipRequest) {
         FriendShipEntity friendShipEntity = friendshipRepository.findByUserNameEqualsAndAndRelateUserNameEquals(
                 friendshipRequest.getUserName(), friendshipRequest.getRelateUserName());
         if (friendShipEntity != null) {
-            friendShipEntity.setFriend(friendshipRequest.getFriend());
-            friendShipEntity.setFollowing(friendshipRequest.getFollowing());
-            friendShipEntity.setStatus(friendshipRequest.getStatus());
+            if (friendshipRequest.getFriend() != null) friendShipEntity.setFriend(friendshipRequest.getFriend());
+            if (friendshipRequest.getFollowing() != null) friendShipEntity.setFollowing(friendshipRequest.getFollowing());
+            if (friendshipRequest.getStatus() != null) friendShipEntity.setStatus(friendshipRequest.getStatus());
             return friendshipRepository.save(friendShipEntity);
         } else {
             return friendshipRepository.save(friendshipRequest);

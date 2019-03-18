@@ -39,8 +39,8 @@ public class FriendshipController {
     // Send friend/follow request
     @RequestMapping(value = "/friendship",method = RequestMethod.POST)
     public @ResponseBody
-    ResponseEntity makeFriendShip(@RequestBody FriendshipRequest request) {
-        FriendShipEntity friendShipEntity = friendshipService.makeFriendShip(request.getFriendshipEntity());
+    ResponseEntity changeFriendShip(@RequestBody FriendshipRequest request) {
+        FriendShipEntity friendShipEntity = friendshipService.changeFriendShip(request.getFriendshipEntity());
         if (friendShipEntity != null) {
             return new ResponseEntity<>(friendShipEntity);
         } else {

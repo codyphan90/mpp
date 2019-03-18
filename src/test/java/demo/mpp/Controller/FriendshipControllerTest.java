@@ -5,13 +5,11 @@ import demo.mpp.Request.FriendshipRequest;
 import demo.mpp.Response.ResponseEntity;
 import demo.mpp.Service.FriendshipService;
 import demo.mpp.Service.UserService;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -57,9 +54,9 @@ public class FriendshipControllerTest {
     public void makeFriendShip__returnSuccess() {
         FriendshipRequest friendshipRequest = new FriendshipRequest();
         friendshipRequest.setFriendshipEntity(friendShipEntity);
-        when(friendshipServiceMock.makeFriendShip(any())).thenReturn(friendShipEntity);
+        when(friendshipServiceMock.changeFriendShip(any())).thenReturn(friendShipEntity);
 
-        ResponseEntity result = friendshipController.makeFriendShip(friendshipRequest);
+        ResponseEntity result = friendshipController.changeFriendShip(friendshipRequest);
         assertTrue(result.getSuccess());
     }
 
@@ -69,9 +66,9 @@ public class FriendshipControllerTest {
         FriendshipRequest friendshipRequest = new FriendshipRequest();
         friendshipRequest.setFriendshipEntity(friendShipEntity);
 
-        when(friendshipServiceMock.makeFriendShip(any())).thenReturn(null);
+        when(friendshipServiceMock.changeFriendShip(any())).thenReturn(null);
 
-        ResponseEntity  result = friendshipController.makeFriendShip(friendshipRequest);
+        ResponseEntity  result = friendshipController.changeFriendShip(friendshipRequest);
         assertFalse(result.getSuccess());
     }
 
