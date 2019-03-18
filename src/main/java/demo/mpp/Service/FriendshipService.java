@@ -29,12 +29,17 @@ public class FriendshipService {
         return friendshipRepository.findAll();
     }
 
-    public String sendFriendshipRequest(FriendShipEntity friendshipEntity) {
-        //Integer entityCheckDuplicate = friendshipRepository.
-
-        //if (entityCheckDuplicate > 0)
-        friendshipRepository.save(friendshipEntity);
-        return null;
+    public FriendShipEntity makeFriendShip(FriendShipEntity friendshipRequest) {
+        FriendShipEntity friendShipEntity = friendshipRepository.findByUserNameEqualsAndAndRelateUserNameEquals(
+                friendshipRequest.getUserName(), friendshipRequest.getRelateUserName());
+        if (friendShipEntity != null) {
+            friendShipEntity.setFriend(friendshipRequest.getFriend());
+            friendShipEntity.setFollowing(friendshipRequest.getFollowing());
+            friendShipEntity.setStatus(friendshipRequest.getStatus());
+            return friendshipRepository.save(friendShipEntity);
+        } else {
+            return friendshipRepository.save(friendshipRequest);
+        }
     }
 
     public String acceptFriendRequest(FriendShipEntity friendshipEntity) {

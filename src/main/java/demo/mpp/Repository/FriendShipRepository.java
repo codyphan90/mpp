@@ -8,4 +8,5 @@ import java.util.List;
 public interface FriendShipRepository extends JpaRepository<FriendShipEntity, Integer> {
     List<FriendShipEntity> findAllByUserNameEquals(String userName);
     List<FriendShipEntity> findAll();
+    FriendShipEntity findByUserNameEqualsAndAndRelateUserNameEquals(String userName, String relateUserName);
 }

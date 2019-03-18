@@ -36,14 +36,15 @@ public class FriendshipController {
     }
 
     // Send friend/follow request
-    @RequestMapping(value = "/friendshiprequest",method = RequestMethod.POST)
+    @RequestMapping(value = "/friendship",method = RequestMethod.POST)
     public @ResponseBody
-    ResponseEntity sendFriendshipRequest(@RequestBody FriendshipRequest request) {
-        String exceptionMessage = friendshipService.sendFriendshipRequest(request.getFriendshipEntity());
-        if (exceptionMessage == null) {
-            return new ResponseEntity<>(true, exceptionMessage);
+    ResponseEntity makeFriendShip(@RequestBody FriendshipRequest request) {
+        FriendShipEntity friendShipEntity = friendshipService.makeFriendShip(request.getFriendshipEntity());
+        if (friendShipEntity.getId() != null) {
+            return new ResponseEntity<>(friendShipEntity);
         } else {
-            return new ResponseEntity<>(false, exceptionMessage);
+            return new ResponseEntity<>(false, "Can not make friendship between " +
+                    request.getFriendshipEntity().getUserName() + ", " + request.getFriendshipEntity().getUserName());
         }
     }
 
