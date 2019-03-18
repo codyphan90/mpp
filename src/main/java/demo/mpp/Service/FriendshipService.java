@@ -3,6 +3,7 @@ package demo.mpp.Service;
 import demo.mpp.Entity.FriendShipEntity;
 import demo.mpp.Entity.UserEntity;
 import demo.mpp.Repository.FriendShipRepository;
+import demo.mpp.Response.CountResponse;
 import demo.mpp.utils.LambdaLibrary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,14 @@ public class FriendshipService {
 
     public List<FriendShipEntity> getListFriends(List<FriendShipEntity> friendshipList, String targetUserName) {
         return LambdaLibrary.GET_FRIEND_SHIP_OF_USER.apply(friendshipList,targetUserName);
+    }
+
+    public CountResponse getFriendShipCount(String userName) {
+        List<FriendShipEntity> allFriendShipList = friendshipRepository.findAll();
+        Integer followingCount = LambdaLibrary.GET_FOLLOWING_COUNT.apply(allFriendShipList, userName);
+        Integer followerCount = LambdaLibrary.GET_FOLLOWERS_COUNT.apply(allFriendShipList, userName);
+        Integer friendCount = LambdaLibrary.GET_FRIEND_COUNT.apply(allFriendShipList, userName);
+        return new CountResponse(friendCount, followingCount, followerCount);
     }
 
     public List<FriendShipEntity> getFullFriendshipList() {

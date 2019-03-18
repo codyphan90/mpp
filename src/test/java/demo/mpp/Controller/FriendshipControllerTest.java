@@ -54,7 +54,25 @@ public class FriendshipControllerTest {
     }
 
     @Test
-    public void makeFriendShip() {
+    public void makeFriendShip__returnSuccess() {
+        FriendshipRequest friendshipRequest = new FriendshipRequest();
+        friendshipRequest.setFriendshipEntity(friendShipEntity);
+        when(friendshipServiceMock.makeFriendShip(any())).thenReturn(friendShipEntity);
+
+        ResponseEntity result = friendshipController.makeFriendShip(friendshipRequest);
+        assertTrue(result.getSuccess());
+    }
+
+    @Test
+    public void makeFriendShip__returnFail() {
+
+        FriendshipRequest friendshipRequest = new FriendshipRequest();
+        friendshipRequest.setFriendshipEntity(friendShipEntity);
+
+        when(friendshipServiceMock.makeFriendShip(any())).thenReturn(null);
+
+        ResponseEntity  result = friendshipController.makeFriendShip(friendshipRequest);
+        assertFalse(result.getSuccess());
     }
 
     @Test

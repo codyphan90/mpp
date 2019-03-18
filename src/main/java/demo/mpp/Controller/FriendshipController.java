@@ -3,6 +3,7 @@ package demo.mpp.Controller;
 import demo.mpp.Entity.FriendShipEntity;
 import demo.mpp.Entity.UserEntity;
 import demo.mpp.Request.FriendshipRequest;
+import demo.mpp.Response.CountResponse;
 import demo.mpp.Response.ResponseEntity;
 import demo.mpp.Service.FriendshipService;
 import demo.mpp.Service.UserService;
@@ -40,7 +41,7 @@ public class FriendshipController {
     public @ResponseBody
     ResponseEntity makeFriendShip(@RequestBody FriendshipRequest request) {
         FriendShipEntity friendShipEntity = friendshipService.makeFriendShip(request.getFriendshipEntity());
-        if (friendShipEntity.getId() != null) {
+        if (friendShipEntity != null) {
             return new ResponseEntity<>(friendShipEntity);
         } else {
             return new ResponseEntity<>(false, "Can not make friendship between " +
@@ -69,6 +70,17 @@ public class FriendshipController {
         } else {
             return new ResponseEntity<>( "Can not make friendship between " +
                     request.getFriendshipEntity().getUserName() + ", " + request.getFriendshipEntity().getUserName());
+        }
+    }
+
+    @RequestMapping(value = "/friendship/count/{user_name}",method = RequestMethod.GET)
+    public @ResponseBody
+    ResponseEntity getFriendShipCount(@PathVariable("user_name") String userName) {
+        CountResponse countResponse = friendshipService.getFriendShipCount(userName);
+        if (countResponse != null) {
+            return new ResponseEntity<>(countResponse);
+        } else {
+            return new ResponseEntity<>("Can not get number frienship of " + userName);
         }
     }
 

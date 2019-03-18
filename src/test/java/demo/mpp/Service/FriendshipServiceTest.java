@@ -3,6 +3,7 @@ package demo.mpp.Service;
 import demo.mpp.Entity.FriendShipEntity;
 import demo.mpp.Entity.UserEntity;
 import demo.mpp.Repository.FriendShipRepository;
+import demo.mpp.Response.CountResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -113,5 +114,23 @@ public class FriendshipServiceTest {
 
         String result = friendshipService.setAcceptFriend(acceptRequest);
         Assert.assertEquals(result,"You denied to make friend with test1");
+    }
+
+    @Test
+    public void getFriendShipCount__returnCountResponse() {
+        // friend: 2, following: 2, follower: 2
+        FriendShipEntity fs1 = new FriendShipEntity("test1", "test2", true, true, "success");
+        FriendShipEntity fs2 = new FriendShipEntity("test1", "test3", true, false, "success");
+        FriendShipEntity fs3 = new FriendShipEntity("test1", "test4", false, true, "success");
+        FriendShipEntity fs4 = new FriendShipEntity("test5", "test1", false, true, "success");
+        FriendShipEntity fs5 = new FriendShipEntity("test6", "test1", false, true, "success");
+
+        when(friendShipRepositoryMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(fs1,fs2,fs3,fs4,fs5)));
+
+        CountResponse result = friendshipService.getFriendShipCount("test1");
+        assertEquals(2, (int)result.getFollowerCount());
+        assertEquals(2, (int)result.getFriendCount());
+        assertEquals(2, (int)result.getFollowingCount());
+
     }
 }
