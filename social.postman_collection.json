@@ -15,7 +15,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/social/post/vietanh",
+					"raw": "http://127.0.0.1:8080/social/post/admin",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -27,7 +27,7 @@
 					"path": [
 						"social",
 						"post",
-						"vietanh"
+						"admin"
 					]
 				}
 			},
@@ -43,13 +43,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/social/newfeed/admin",
+					"raw": "http://localhost:8080/social/newfeed/admin",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"localhost"
 					],
 					"port": "8080",
 					"path": [
@@ -75,7 +72,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"content\": \"this post of tam\",\n    \"userName\": \"tam\"\n}"
+					"raw": "{\n    \"content\": \"this post  of tam\",\n    \"userName\": \"tam\"\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8080/social/post/",
@@ -161,6 +158,129 @@
 						"social",
 						"reaction",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "make friend / following",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"friendshipEntity\": {\n      \t\"userName\": \"admin\",\n        \"relateUserName\": \"test\",\n        \"friend\": true,\n        \"following\": true,\n        \"status\": \"pending\"\n      }\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/friendship",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friendship"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get friendship list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/friends/admin/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friends",
+						"admin",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get friend pending ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/friendship/pending/sang",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friendship",
+						"pending",
+						"sang"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send accept request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"friendshipEntity\": {\n        \"userName\": \"admin\",\n        \"relateUserName\": \"sang\",\n        \"friend\": true,\n        \"following\": true\n    }\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/friendship/accept",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friendship",
+						"accept"
 					]
 				}
 			},

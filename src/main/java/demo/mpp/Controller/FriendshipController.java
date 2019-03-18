@@ -48,15 +48,28 @@ public class FriendshipController {
         }
     }
 
-    // accept friend request
-    @RequestMapping(value = "/acceptfriend",method = RequestMethod.POST)
+    @RequestMapping(value = "/friendship/pending/{user_name}",method = RequestMethod.GET)
     public @ResponseBody
-    ResponseEntity acceptFriendRequest(@RequestBody FriendshipRequest request) {
-        String exceptionMessage = friendshipService.acceptFriendRequest(request.getFriendshipEntity());
-        if (exceptionMessage == null) {
-            return new ResponseEntity<>(true, exceptionMessage);
+    ResponseEntity getFriendPending(@PathVariable("user_name") String userName) {
+        List<FriendShipEntity> pendingList = friendshipService.getFriendPending(userName);
+        if (pendingList != null) {
+            return new ResponseEntity<>(pendingList);
         } else {
-            return new ResponseEntity<>(false, exceptionMessage);
+            return new ResponseEntity<>("Can not get friend pending list of " + userName);
         }
     }
+
+    // accept friend request
+    @RequestMapping(value = "/friendship/accept",method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity setAcceptFriend(@RequestBody FriendshipRequest request) {
+        String message = friendshipService.setAcceptFriend(request.getFriendshipEntity());
+        if (message != null) {
+            return new ResponseEntity<>(true, null, message);
+        } else {
+            return new ResponseEntity<>( "Can not make friendship between " +
+                    request.getFriendshipEntity().getUserName() + ", " + request.getFriendshipEntity().getUserName());
+        }
+    }
+
 }

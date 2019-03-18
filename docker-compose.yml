@@ -5,7 +5,7 @@ services:
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=root123
-      - MYSQL_DATABASE=survey
+      - MYSQL_DATABASE=social
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root123
     volumes:

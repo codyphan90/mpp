@@ -2,6 +2,7 @@ package demo.mpp.utils;
 
 import demo.mpp.Entity.FriendShipEntity;
 import demo.mpp.Entity.PostEntity;
+import demo.mpp.Entity.UserEntity;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -9,6 +10,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class LambdaLibrary {
+
+    /* Post */
     public static final BiFunction<List<PostEntity>, List<String>, List<PostEntity>> GET_NEW_FEED = (allPost, followUserList)
             -> Optional.ofNullable(allPost)
             .orElseGet(Collections::emptyList)
@@ -35,4 +38,33 @@ public class LambdaLibrary {
             .filter(post -> post.getUserName().equals(userName))
             .sorted(Comparator.comparing(PostEntity::getCreatedDate).reversed())
             .limit(1).collect(Collectors.toList());
+
+    /* FriendShip */
+    //Convert from list of user entity to list of user name
+    public static final Function<List<UserEntity>, List<String>> CONVERT_TO_USER_NAME = (userList)
+            -> userList.stream()
+            .map(UserEntity::getUserName)
+            .collect(Collectors.toList());
+
+    // Collect list of users who does not have friendship
+    public static final BiFunction<List<UserEntity>, List<FriendShipEntity>, List<UserEntity>> GET_WHO_NOT_FRIEND = (listUser, listFriendship)
+            -> listUser.stream()
+            .filter(user -> !listFriendship.stream()
+                    .map(FriendShipEntity::getUserName)
+                    .collect(Collectors.toList())
+                    .contains(user.getUserName()))
+            .collect(Collectors.toList());
+
+    // From list of Friendship from db, filter friends/followings of 1 user
+    public static final BiFunction<List<FriendShipEntity>, String, List<FriendShipEntity>> GET_FRIEND_SHIP_OF_USER = (userFrsList, targetUserName)
+            -> userFrsList.stream()
+            .filter(frs -> frs.getUserName().equals(targetUserName))
+            .collect(Collectors.toList());
+
+    // Get Friend Pending List
+    public static final BiFunction<List<FriendShipEntity>, String, List<FriendShipEntity>> GET_FRIEND_PENDING = (friendshipList, relateUserName)
+            -> friendshipList.stream()
+            .filter(fs -> relateUserName.equals(fs.getRelateUserName()) && fs.getStatus().equals("pending"))
+            .collect(Collectors.toList());
+
 }

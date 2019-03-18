@@ -24,6 +24,9 @@ public class UserEntity {
     @Column(name = "dob")
     private Date dateOfBirth;
 
+    @Column(name = "image_id")
+    private String imageId;
+
 	public UserEntity() {
 	}
 
@@ -34,11 +37,12 @@ public class UserEntity {
         this.dateOfBirth= null;
     }
 	
-	public UserEntity(String userName, String password, String fullName, Date dateOfBirth) {
+	public UserEntity(String userName, String password, String fullName, Date dateOfBirth, String imageId) {
 		this.userName = userName;
 		this.password = password;
 		this.fullName = fullName;
 		this.dateOfBirth= dateOfBirth;
+		this.imageId = imageId;
 	}
 
     public Integer getId() {
@@ -78,5 +82,13 @@ public class UserEntity {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 }
