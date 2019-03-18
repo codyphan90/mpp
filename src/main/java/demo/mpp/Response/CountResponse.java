@@ -4,11 +4,13 @@ public class CountResponse {
     private Integer friendCount;
     private Integer followingCount;
     private Integer followerCount;
+    private Integer pendingCount;
 
-    public CountResponse(Integer friendCount, Integer followingCount, Integer followerCount) {
+    public CountResponse(Integer friendCount, Integer followingCount, Integer followerCount, Integer pendingCount) {
         this.friendCount = friendCount;
         this.followingCount = followingCount;
         this.followerCount = followerCount;
+        this.pendingCount = pendingCount;
     }
 
     public Integer getFriendCount() {

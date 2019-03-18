@@ -49,10 +49,10 @@ public class LambdaLibrary {
                     .contains(user.getUserName()))
             .collect(Collectors.toList());
 
-    // From list of Friendship from db, filter friends/followings of 1 user
-    public static final BiFunction<List<FriendShipEntity>, String, List<FriendShipEntity>> GET_FRIEND_SHIP_OF_USER = (friendShipEntityList, targetUserName)
+    // From list of Friendship from db, filter friends of 1 user
+    public static final BiFunction<List<FriendShipEntity>, String, List<FriendShipEntity>> GET_FRIEND = (friendShipEntityList, targetUserName)
             -> friendShipEntityList.stream()
-            .filter(frs -> frs.getUserName().equals(targetUserName))
+            .filter(frs -> frs.getUserName().equals(targetUserName) &&frs.getFriend())
             .collect(Collectors.toList());
 
     public static final BiFunction<List<FriendShipEntity>, String, Integer> GET_FOLLOWERS_COUNT = (friendShipEntityList, userName)
@@ -66,6 +66,10 @@ public class LambdaLibrary {
     public static final BiFunction<List<FriendShipEntity>, String, Integer> GET_FRIEND_COUNT = (friendShipEntityList, userName)
             -> (int) friendShipEntityList.stream()
             .filter(fs -> fs.getUserName().equals(userName) && fs.getFriend()).count();
+
+    public static final BiFunction<List<FriendShipEntity>, String, Integer> GET_PENDING_COUNT = (friendShipEntityList, userName)
+            -> (int) friendShipEntityList.stream()
+            .filter(fs -> fs.getRelateUserName().equals(userName) && fs.getStatus().equals("pending")).count();
 
     // Get Friend Pending List
     public static final BiFunction<List<FriendShipEntity>, String, List<FriendShipEntity>> GET_FRIEND_PENDING = (friendshipList, relateUserName)

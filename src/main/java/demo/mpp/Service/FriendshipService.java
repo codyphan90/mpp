@@ -17,12 +17,12 @@ public class FriendshipService {
 
     public List<UserEntity> getListUsersWhoNotFriend (List<UserEntity> userList, List<FriendShipEntity> friendshipList, String targetUserName) {
          return LambdaLibrary.GET_WHO_NOT_FRIEND
-                       .apply(userList, LambdaLibrary.GET_FRIEND_SHIP_OF_USER
+                       .apply(userList, LambdaLibrary.GET_FRIEND
                                .apply(friendshipList,targetUserName));
     }
 
     public List<FriendShipEntity> getListFriends(List<FriendShipEntity> friendshipList, String targetUserName) {
-        return LambdaLibrary.GET_FRIEND_SHIP_OF_USER.apply(friendshipList,targetUserName);
+        return LambdaLibrary.GET_FRIEND.apply(friendshipList,targetUserName);
     }
 
     public CountResponse getFriendShipCount(String userName) {
@@ -30,7 +30,8 @@ public class FriendshipService {
         Integer followingCount = LambdaLibrary.GET_FOLLOWING_COUNT.apply(allFriendShipList, userName);
         Integer followerCount = LambdaLibrary.GET_FOLLOWERS_COUNT.apply(allFriendShipList, userName);
         Integer friendCount = LambdaLibrary.GET_FRIEND_COUNT.apply(allFriendShipList, userName);
-        return new CountResponse(friendCount, followingCount, followerCount);
+        Integer pendingCount = LambdaLibrary.GET_PENDING_COUNT.apply(allFriendShipList, userName);
+        return new CountResponse(friendCount, followingCount, followerCount, pendingCount);
     }
 
     public List<FriendShipEntity> getFullFriendshipList() {
