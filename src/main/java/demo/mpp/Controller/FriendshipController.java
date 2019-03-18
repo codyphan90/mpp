@@ -21,11 +21,11 @@ public class FriendshipController {
     private UserService userService;
 
     // get list of users that the targeted user should make friend or follow
-    @RequestMapping(value = "/friendship/{user_name}",method = RequestMethod.GET)
-    public @ResponseBody List<String> getListFriendNeedMakeFriendFollow(@PathVariable("user_name") String useName) {
+    @RequestMapping(value = "/strangers/{user_name}",method = RequestMethod.GET)
+    public @ResponseBody List<UserEntity> getListFriendNeedMakeFriendFollow(@PathVariable("user_name") String useName) {
         List<UserEntity> userEntityList = userService.getFullUserList();
         List<FriendShipEntity> friendshipList = friendshipService.getFullFriendshipList();
-        return friendshipService.getListUsersNeedFriendship(userEntityList,friendshipList,useName);
+        return friendshipService.getListUsersWhoNotFriend(userEntityList,friendshipList,useName);
     }
 
     //get list of friends of a user

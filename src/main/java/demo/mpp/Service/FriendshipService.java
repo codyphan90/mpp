@@ -14,11 +14,10 @@ public class FriendshipService {
     @Autowired
     protected FriendShipRepository friendshipRepository;
 
-    public List<String> getListUsersNeedFriendship (List<UserEntity> userList, List<FriendShipEntity> friendshipList, String targetUserName) {
-         return LambdaLibrary.CONVERT_TO_USER_NAME
-                .apply(LambdaLibrary.GET_WHO_NOT_FRIEND
+    public List<UserEntity> getListUsersWhoNotFriend (List<UserEntity> userList, List<FriendShipEntity> friendshipList, String targetUserName) {
+         return LambdaLibrary.GET_WHO_NOT_FRIEND
                        .apply(userList, LambdaLibrary.GET_FRIEND_SHIP_OF_USER
-                               .apply(friendshipList,targetUserName)));
+                               .apply(friendshipList,targetUserName));
     }
 
     public List<FriendShipEntity> getListFriends(List<FriendShipEntity> friendshipList, String targetUserName) {
