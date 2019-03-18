@@ -9,7 +9,6 @@ import demo.mpp.Repository.EmotionRepository;
 import demo.mpp.Repository.FriendShipRepository;
 import demo.mpp.Repository.PostRepository;
 import demo.mpp.utils.LambdaLibrary;
-import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,11 +41,14 @@ public class PostService {
         List<FriendShipEntity> allFriendShip = friendShipRepository.findAllByUserNameEquals(userName);
 
         // get follow users then get posts of them
-        List<PostEntity> newFeed = LambdaLibrary.NEW_FEED.apply(allPost, LambdaLibrary.GET_FOLLOW_USER.apply(allFriendShip));
+        List<PostEntity> newFeed = LambdaLibrary.GET_NEW_FEED.apply(allPost, LambdaLibrary.GET_FOLLOW_USER.apply(allFriendShip));
+
+        // plus my newest post
+        List<PostEntity> newestPost = LambdaLibrary.GET_NEWEST_POST.apply(allPost, userName);
+        if (newestPost.size() != 0) newFeed.add(0, newestPost.get(0));
 
         getCommentAndReaction(newFeed);
         return newFeed;
-
     }
 
     public PostEntity createPost(PostEntity postEntity) {
