@@ -40,12 +40,6 @@ public class LambdaLibrary {
             .limit(1).collect(Collectors.toList());
 
     /* FriendShip */
-    //Convert from list of user entity to list of user name
-    public static final Function<List<UserEntity>, List<String>> CONVERT_TO_USER_NAME = (userList)
-            -> userList.stream()
-            .map(UserEntity::getUserName)
-            .collect(Collectors.toList());
-
     // Collect list of users who does not have friendship
     public static final BiFunction<List<UserEntity>, List<FriendShipEntity>, List<UserEntity>> GET_WHO_NOT_FRIEND = (listUser, listFriendship)
             -> listUser.stream()
