@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "5586306f-4f0b-4e5d-a485-a95ea46bf10b",
 		"name": "Social",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -21,7 +21,20 @@
 					"mode": "raw",
 					"raw": "{\n    \"userEntity\": {\n        \"userName\": \"Tuan\",\n        \"password\": \"1234\",\n        \"fullName\": \"Tran Quoc\",\n        \"dateOfBirth\": null\n    }\n}"
 				},
-				"url": "http://127.0.0.1:8080/user"
+				"url": {
+					"raw": "http://127.0.0.1:8080/user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
 			},
 			"response": []
 		},
@@ -41,7 +54,20 @@
 					"mode": "raw",
 					"raw": "{\n\t\"userEntity\": {\n        \"userName\": \"Quang\",\n        \"password\": \"1234\"\n    }\n}"
 				},
-				"url": "http://127.0.0.1:8080/login"
+				"url": {
+					"raw": "http://127.0.0.1:8080/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
 			},
 			"response": []
 		},
@@ -54,7 +80,21 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://127.0.0.1:8080/profile/Toan"
+				"url": {
+					"raw": "http://127.0.0.1:8080/profile/Toan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"Toan"
+					]
+				}
 			},
 			"response": []
 		},
@@ -74,7 +114,20 @@
 					"mode": "raw",
 					"raw": "{\n\t\"friendshipEntity\": {\n        \"userName\": \"Quang\",\n        \"relateUserName\": \"Toan\",\n        \"friend\": true,\n        \"following\": true,\n        \"status\": \"pending\"\n    }\n}"
 				},
-				"url": "http://127.0.0.1:8080/friendshiprequest"
+				"url": {
+					"raw": "http://127.0.0.1:8080/friendshiprequest",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friendshiprequest"
+					]
+				}
 			},
 			"response": []
 		},
@@ -97,7 +150,21 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://127.0.0.1:8080/friends/Quang"
+				"url": {
+					"raw": "http://127.0.0.1:8080/friends/Quang",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friends",
+						"Quang"
+					]
+				}
 			},
 			"response": []
 		},
@@ -120,7 +187,21 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://127.0.0.1:8080/friendship/Quang"
+				"url": {
+					"raw": "http://127.0.0.1:8080/friendship/Quang",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friendship",
+						"Quang"
+					]
+				}
 			},
 			"response": []
 		}
