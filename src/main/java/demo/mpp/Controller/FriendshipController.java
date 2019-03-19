@@ -40,12 +40,20 @@ public class FriendshipController {
         return friendshipService.getListFriends(userEntityList,friendshipList,useName);
     }
 
-    //get list of follwers of a user
+    //get list of followers of a user
     @RequestMapping(value = "/followers/{user_name}",method = RequestMethod.GET)
     public @ResponseBody List<UserEntity> getListFollowers(@PathVariable("user_name") String useName) {
         List<FriendShipEntity> friendshipList = friendshipService.getFullFriendshipList();
         List<UserEntity> userEntityList = userService.getFullUserList();
         return friendshipService.getListFollowers(userEntityList,friendshipList,useName);
+    }
+
+    //get list of following of a user
+    @RequestMapping(value = "/following/{user_name}",method = RequestMethod.GET)
+    public @ResponseBody List<UserEntity> getListFollowingUsers(@PathVariable("user_name") String useName) {
+        List<FriendShipEntity> friendshipList = friendshipService.getFullFriendshipList();
+        List<UserEntity> userEntityList = userService.getFullUserList();
+        return friendshipService.getListFollowingUsers(userEntityList,friendshipList,useName);
     }
 
     // Send friend/follow request

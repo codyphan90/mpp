@@ -30,6 +30,10 @@ public class FriendshipService {
         return LambdaLibrary.MAP_USERNAMES_2_USERENTITIES.apply(userEntityList,LambdaLibrary.GET_FOLLOW_USER.apply(friendshipList.stream().filter(fr->fr.getUserName().equals(targetUserName)).collect(Collectors.toList())));
     }
 
+    public List<UserEntity> getListFollowingUsers(List<UserEntity> userEntityList, List<FriendShipEntity> friendshipList, String targetUserName) {
+        return LambdaLibrary.MAP_USERNAMES_2_USERENTITIES.apply(userEntityList,LambdaLibrary.GET_FOLLOWING_USER.apply(friendshipList,targetUserName));
+    }
+
     public CountResponse getFriendShipCount(String userName) {
         List<FriendShipEntity> allFriendShipList = friendshipRepository.findAll();
         Integer followingCount = LambdaLibrary.GET_FOLLOWING_COUNT.apply(allFriendShipList, userName);
