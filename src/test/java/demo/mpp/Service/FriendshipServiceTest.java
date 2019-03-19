@@ -78,7 +78,7 @@ public class FriendshipServiceTest {
         List<UserEntity> userEntityList = new ArrayList<>(Arrays.asList(user1, user2, user3, user4));
         friendShipEntity = new FriendShipEntity("test1", "test2", true, true,"success");
         List<FriendShipEntity> friendShipEntityList = new ArrayList<>(Arrays.asList(friendShipEntity));
-        List<UserEntity> list=friendshipService.getListFollowers(userEntityList,friendShipEntityList,"test1" );
+        List<UserEntity> list=friendshipService.getListFollowers(userEntityList,friendShipEntityList,"test2" );
 
         assertEquals(1,list.size());
     }
@@ -92,7 +92,7 @@ public class FriendshipServiceTest {
         List<UserEntity> userEntityList = new ArrayList<>(Arrays.asList(user1, user2, user3, user4));
         friendShipEntity = new FriendShipEntity("test1", "test2", true, true,"success");
         List<FriendShipEntity> friendShipEntityList = new ArrayList<>(Arrays.asList(friendShipEntity));
-        List<UserEntity> list=friendshipService.getListFollowingUsers(userEntityList,friendShipEntityList,"test2" );
+        List<UserEntity> list=friendshipService.getListFollowingUsers(userEntityList,friendShipEntityList,"test1" );
 
         assertEquals(1,list.size());
     }
