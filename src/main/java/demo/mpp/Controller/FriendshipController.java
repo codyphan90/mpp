@@ -7,10 +7,12 @@ import demo.mpp.Response.CountResponse;
 import demo.mpp.Response.ResponseEntity;
 import demo.mpp.Service.FriendshipService;
 import demo.mpp.Service.UserService;
+import demo.mpp.utils.LambdaLibrary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -23,17 +25,27 @@ public class FriendshipController {
 
     // get list of users that the targeted user should make friend or follow
     @RequestMapping(value = "/strangers/{user_name}",method = RequestMethod.GET)
-    public @ResponseBody List<UserEntity> getListFriendNeedMakeFriendFollow(@PathVariable("user_name") String useName) {
+    public @ResponseBody List<UserEntity> getListFriendNeedMakeFriendFollow(@PathVariable("user_name") String userName) {
         List<UserEntity> userEntityList = userService.getFullUserList();
         List<FriendShipEntity> friendshipList = friendshipService.getFullFriendshipList();
-        return friendshipService.getListUsersWhoNotFriend(userEntityList,friendshipList,useName);
+        List<UserEntity> list =friendshipService.getListUsersWhoNotFriend(userEntityList,friendshipList,userName);
+        return LambdaLibrary.REMOVE_USERENTITY.apply(list,userName);
     }
 
     //get list of friends of a user
     @RequestMapping(value = "/friends/{user_name}",method = RequestMethod.GET)
-    public @ResponseBody List<FriendShipEntity> getListFriends(@PathVariable("user_name") String useName) {
+    public @ResponseBody List<UserEntity> getListFriends(@PathVariable("user_name") String useName) {
         List<FriendShipEntity> friendshipList = friendshipService.getFullFriendshipList();
-        return friendshipService.getListFriends(friendshipList,useName);
+        List<UserEntity> userEntityList = userService.getFullUserList();
+        return friendshipService.getListFriends(userEntityList,friendshipList,useName);
+    }
+
+    //get list of follwers of a user
+    @RequestMapping(value = "/followers/{user_name}",method = RequestMethod.GET)
+    public @ResponseBody List<UserEntity> getListFollowers(@PathVariable("user_name") String useName) {
+        List<FriendShipEntity> friendshipList = friendshipService.getFullFriendshipList();
+        List<UserEntity> userEntityList = userService.getFullUserList();
+        return friendshipService.getListFollowers(userEntityList,friendshipList,useName);
     }
 
     // Send friend/follow request

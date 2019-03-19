@@ -40,19 +40,38 @@ public class LambdaLibrary {
             .limit(1).collect(Collectors.toList());
 
     /* FriendShip */
+    // Remove a user from UserEntity list
+    public static final BiFunction<List<UserEntity>, String, List<UserEntity>> REMOVE_USERENTITY = (listUser, userName) ->
+            listUser.stream()
+                    .filter(user->!user.getUserName().equals(userName))
+                    .collect(Collectors.toList());
     // Collect list of users who does not have friendship
     public static final BiFunction<List<UserEntity>, List<FriendShipEntity>, List<UserEntity>> GET_WHO_NOT_FRIEND = (listUser, listFriendship)
             -> listUser.stream()
             .filter(user -> !listFriendship.stream()
-                    .map(FriendShipEntity::getUserName)
+                    .map(FriendShipEntity::getRelateUserName)
+                    .filter(u->u.equals(user.getUserName()))
                     .collect(Collectors.toList())
                     .contains(user.getUserName()))
             .collect(Collectors.toList());
 
+    // Get friendship List of 1 user
+    public static final BiFunction<List<FriendShipEntity>, String, List<FriendShipEntity>> GET_FRIENDSHIP = (friendShipEntityList,targetUserName)
+            ->friendShipEntityList.stream()
+            .filter(frs->frs.getUserName().equals(targetUserName))
+            .collect(Collectors.toList());
+
     // From list of Friendship from db, filter friends of 1 user
-    public static final BiFunction<List<FriendShipEntity>, String, List<FriendShipEntity>> GET_FRIEND = (friendShipEntityList, targetUserName)
+    public static final BiFunction<List<FriendShipEntity>, String, List<String>> GET_FRIEND = (friendShipEntityList, targetUserName)
             -> friendShipEntityList.stream()
             .filter(frs -> frs.getUserName().equals(targetUserName) &&frs.getFriend())
+            .map(frs->frs.getRelateUserName())
+            .collect(Collectors.toList());
+
+    // Map from list of user names to list of User entities
+    public static final BiFunction<List<UserEntity>, List<String>, List<UserEntity>> MAP_USERNAMES_2_USERENTITIES = (userEntityList, userNameList)
+            -> userEntityList.stream()
+            .filter(user->userNameList.contains(user.getUserName()))
             .collect(Collectors.toList());
 
     public static final BiFunction<List<FriendShipEntity>, String, Integer> GET_FOLLOWERS_COUNT = (friendShipEntityList, userName)

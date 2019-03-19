@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FriendshipService {
@@ -17,13 +18,16 @@ public class FriendshipService {
     protected FriendShipRepository friendshipRepository;
 
     public List<UserEntity> getListUsersWhoNotFriend (List<UserEntity> userList, List<FriendShipEntity> friendshipList, String targetUserName) {
-         return LambdaLibrary.GET_WHO_NOT_FRIEND
-                       .apply(userList, LambdaLibrary.GET_FRIEND
-                               .apply(friendshipList,targetUserName));
+        List<FriendShipEntity> friendship = LambdaLibrary.GET_FRIENDSHIP.apply(friendshipList,targetUserName);
+        return LambdaLibrary.GET_WHO_NOT_FRIEND.apply(userList,friendship);
     }
 
-    public List<FriendShipEntity> getListFriends(List<FriendShipEntity> friendshipList, String targetUserName) {
-        return LambdaLibrary.GET_FRIEND.apply(friendshipList,targetUserName);
+    public List<UserEntity> getListFriends(List<UserEntity> userEntityList, List<FriendShipEntity> friendshipList, String targetUserName) {
+        return LambdaLibrary.MAP_USERNAMES_2_USERENTITIES.apply(userEntityList,LambdaLibrary.GET_FRIEND.apply(friendshipList,targetUserName));
+    }
+
+    public List<UserEntity> getListFollowers(List<UserEntity> userEntityList, List<FriendShipEntity> friendshipList, String targetUserName) {
+        return LambdaLibrary.MAP_USERNAMES_2_USERENTITIES.apply(userEntityList,LambdaLibrary.GET_FOLLOW_USER.apply(friendshipList.stream().filter(fr->fr.getUserName().equals(targetUserName)).collect(Collectors.toList())));
     }
 
     public CountResponse getFriendShipCount(String userName) {
