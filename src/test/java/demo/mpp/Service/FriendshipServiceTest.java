@@ -52,15 +52,49 @@ public class FriendshipServiceTest {
 
         List<UserEntity> result = friendshipService.getListUsersWhoNotFriend(userEntityList, friendShipEntityList, "test1");
 
-//        assertEquals(2, result.size());
-
-
-//        FriendShipEntity
-//        List<UserEntity> result = friendshipService.getListUsersWhoNotFriend(userEntityList,);
+        assertEquals(3, result.size());
     }
 
     @Test
     public void getListFriends() {
+        UserEntity user1 = new UserEntity("test1", "2r23r23r", "test1");
+        UserEntity user2 = new UserEntity("test2", "2r23r23r", "test2");
+        UserEntity user3 = new UserEntity("test3", "2r23r23r", "test3");
+        UserEntity user4 = new UserEntity("test4", "2r23r23r", "test4");
+        List<UserEntity> userEntityList = new ArrayList<>(Arrays.asList(user1, user2, user3, user4));
+        friendShipEntity = new FriendShipEntity("test1", "test2", true, true,"success");
+        List<FriendShipEntity> friendShipEntityList = new ArrayList<>(Arrays.asList(friendShipEntity));
+        List<UserEntity> list=friendshipService.getListFriends(userEntityList,friendShipEntityList,"test1" );
+
+        assertEquals(1,list.size());
+    }
+
+    @Test
+    public void getListFollowers() {
+        UserEntity user1 = new UserEntity("test1", "2r23r23r", "test1");
+        UserEntity user2 = new UserEntity("test2", "2r23r23r", "test2");
+        UserEntity user3 = new UserEntity("test3", "2r23r23r", "test3");
+        UserEntity user4 = new UserEntity("test4", "2r23r23r", "test4");
+        List<UserEntity> userEntityList = new ArrayList<>(Arrays.asList(user1, user2, user3, user4));
+        friendShipEntity = new FriendShipEntity("test1", "test2", true, true,"success");
+        List<FriendShipEntity> friendShipEntityList = new ArrayList<>(Arrays.asList(friendShipEntity));
+        List<UserEntity> list=friendshipService.getListFollowers(userEntityList,friendShipEntityList,"test1" );
+
+        assertEquals(1,list.size());
+    }
+
+    @Test
+    public void getListFollowingUsers() {
+        UserEntity user1 = new UserEntity("test1", "2r23r23r", "test1");
+        UserEntity user2 = new UserEntity("test2", "2r23r23r", "test2");
+        UserEntity user3 = new UserEntity("test3", "2r23r23r", "test3");
+        UserEntity user4 = new UserEntity("test4", "2r23r23r", "test4");
+        List<UserEntity> userEntityList = new ArrayList<>(Arrays.asList(user1, user2, user3, user4));
+        friendShipEntity = new FriendShipEntity("test1", "test2", true, true,"success");
+        List<FriendShipEntity> friendShipEntityList = new ArrayList<>(Arrays.asList(friendShipEntity));
+        List<UserEntity> list=friendshipService.getListFollowingUsers(userEntityList,friendShipEntityList,"test2" );
+
+        assertEquals(1,list.size());
     }
 
     @Test
