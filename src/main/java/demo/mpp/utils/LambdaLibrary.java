@@ -49,7 +49,7 @@ public class LambdaLibrary {
     public static final BiFunction<List<FriendShipEntity>, String, List<String>> GET_FOLLOWING_USER = (friendShipEntityList, userName)
             -> friendShipEntityList.stream()
             .filter(fs -> fs.getUserName().equals(userName) && fs.getFollowing())
-            .map(fs->fs.getUserName())
+            .map(fs->fs.getRelateUserName())
             .collect(Collectors.toList());
 
     // Collect list of users who does not have friendship
