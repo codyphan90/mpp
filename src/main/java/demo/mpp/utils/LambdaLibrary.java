@@ -30,6 +30,15 @@ public class LambdaLibrary {
             .map(FriendShipEntity::getRelateUserName)
             .collect(Collectors.toList());
 
+    public static final Function<List<FriendShipEntity>, List<String>> GET_FOLLOWER_USER = listFriendShip
+            -> Optional.ofNullable(listFriendShip)
+            .orElseGet(Collections::emptyList)
+            .stream()
+            .filter(Objects::nonNull)
+            .filter(FriendShipEntity::getFollowing)
+            .map(FriendShipEntity::getUserName)
+            .collect(Collectors.toList());
+
     public static final BiFunction<List<PostEntity>, String, List<PostEntity>> GET_NEWEST_POST = (allPost, userName)
             -> Optional.ofNullable(allPost)
             .orElseGet(Collections::emptyList)

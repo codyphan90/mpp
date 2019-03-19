@@ -27,7 +27,7 @@ public class FriendshipService {
     }
 
     public List<UserEntity> getListFollowers(List<UserEntity> userEntityList, List<FriendShipEntity> friendshipList, String targetUserName) {
-        return LambdaLibrary.MAP_USERNAMES_2_USERENTITIES.apply(userEntityList,LambdaLibrary.GET_FOLLOW_USER.apply(friendshipList.stream().filter(fr->fr.getRelateUserName().equals(targetUserName)).collect(Collectors.toList())));
+        return LambdaLibrary.MAP_USERNAMES_2_USERENTITIES.apply(userEntityList,LambdaLibrary.GET_FOLLOWER_USER.apply(friendshipList.stream().filter(fr->fr.getRelateUserName().equals(targetUserName)).collect(Collectors.toList())));
     }
 
     public List<UserEntity> getListFollowingUsers(List<UserEntity> userEntityList, List<FriendShipEntity> friendshipList, String targetUserName) {
