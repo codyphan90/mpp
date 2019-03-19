@@ -28,8 +28,7 @@ public class FriendshipController {
     public @ResponseBody List<UserEntity> getListFriendNeedMakeFriendFollow(@PathVariable("user_name") String userName) {
         List<UserEntity> userEntityList = userService.getFullUserList();
         List<FriendShipEntity> friendshipList = friendshipService.getFullFriendshipList();
-        List<UserEntity> list =friendshipService.getListUsersWhoNotFriend(userEntityList,friendshipList,userName);
-        return LambdaLibrary.REMOVE_USERENTITY.apply(list,userName);
+        return LambdaLibrary.REMOVE_USERENTITY.apply(friendshipService.getListUsersWhoNotFriend(userEntityList,friendshipList,userName),userName);
     }
 
     //get list of friends of a user
