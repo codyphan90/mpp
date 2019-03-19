@@ -57,7 +57,7 @@ public class LambdaLibrary {
     public static final BiFunction<List<UserEntity>, List<FriendShipEntity>, List<UserEntity>> GET_WHO_NOT_FRIEND = (listUser, listFriendship)
             -> listUser.stream()
             .filter(user -> !listFriendship.stream()
-                    .filter(frs->!frs.getFriend()||!frs.getFollowing())
+                    .filter(frs->frs.getFriend()||frs.getFollowing())
                     .map(FriendShipEntity::getRelateUserName)
                     .filter(u->u.equals(user.getUserName()))
                     .collect(Collectors.toList())
